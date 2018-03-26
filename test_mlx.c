@@ -65,7 +65,6 @@ int main(int ac, char **av)
 // circle
 	x = 0;
 	y = 50;
-	mlx_pixel_put(mlx_ptr, window, x, y, 0xFE0000);
 	rayon = 50;
 	x_centre = 200;
 	y_centre = 200;
