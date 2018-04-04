@@ -6,14 +6,14 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/03/30 16:04:23 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/03 15:24:00 by karakhirn        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <mlx.h>
+//# include <mlx.h>
 # include <fcntl.h>
 # include "libft/libft.h"
 
@@ -36,5 +36,7 @@ void	ft_parser(char *map);
 char	*ft_add_back_n(char *line);
 
 t_coord	*ft_coord(char **tab, t_coord *coord);
+
+void	ft_check_map(char *map);
 
 #endif
