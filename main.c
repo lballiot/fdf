@@ -6,11 +6,10 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/03 15:22:46 by karakhirn        ###   ########.fr       */
+/*   Updated: 2018/04/05 12:10:23 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
 #include "fdf.h"
 
 char **ft_map(int fd)
@@ -19,7 +18,6 @@ char **ft_map(int fd)
 	char *line;
 	char **tab = NULL;
 	int ret;
-//	int i = 0;//
 	
 	line = ft_strnew(1);
 	map = ft_strnew(1);
@@ -27,7 +25,7 @@ char **ft_map(int fd)
 	{
 		line = ft_add_back_n(line);
 		map = ft_strjoin_and_free(map, line);
-		ft_parser(map); //parser if failed exit failure 
+		ft_check_char(map); 
 	}
 	free(line);
 	if (ret == 0 && map[0] == '\0')
@@ -36,7 +34,7 @@ char **ft_map(int fd)
 		exit(EXIT_FAILURE);
 	}
 	ft_check_map(map);
-	tab = ft_strsplit(map, ' ');
+	tab = ft_strsplit(map, '\n');
 	free(map);
 	return (tab);
 }
