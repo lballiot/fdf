@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 16:02:34 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/05 16:51:22 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/06 10:52:32 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,17 +117,37 @@ t_coord		*ft_coord(char **tab, t_coord *coord)
 		coord = coord->next;
 		i++;
 	}
-	i = 0;
-	j = 0;
 	coord = tmp_link;
-	while (tab[i])
+	while(coord->next != NULL)
 	{
+		ft_putstr("coord->x = ");
+		ft_putnbr(coord->x);
+		ft_putstr("\n");
+		ft_putstr("coord->y = ");
+		ft_putnbr(coord->y);
+		ft_putstr("\n");
+		ft_putstr("coord->z = ");
+		ft_putnbr(coord->z);
+		ft_putstr("\n");
+		ft_putstr("TOTO\n");
+		coord = coord->next;
+		
+	}
+	
+	i = -1;
+	j = -1;
+	coord = tmp_link;
+	while (tab[++i])
+	{
+		ft_putstr("\n");
 		ft_putstr("tab[i] =");
 		ft_putstr(tab[i]);
 		ft_putstr("= \n");
 		tab_split = ft_strsplit(tab[i], ' ');
-		while (tab_split[j])
+		free(tab[i]);
+		while (tab_split[++j] && coord->next != NULL)
 		{
+			ft_putstr("\nBOUCLE\n");
 			coord->z = ft_atoi(tab_split[j]);
 			ft_putstr("tab[");
 			ft_putnbr(j);
@@ -137,15 +157,11 @@ t_coord		*ft_coord(char **tab, t_coord *coord)
 			ft_putstr("coord->z = ");
 			ft_putnbr(coord->z);
 			ft_putstr("\n");
-			if (coord->next == NULL)
-			{
-				ft_putstr("NULL\n");
-			}
+			if (i == 0 && j == 0)
+				tmp_link = coord;
 			coord = coord->next;
-			j++;
 		}
-		j = 0;
-		i++;
+		j = -1;
 	}
 	coord = tmp_link;
 	ft_putstr("ENENENENENENEND\n");
