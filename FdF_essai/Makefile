@@ -6,13 +6,13 @@
 #    By: lballiot <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/30 11:48:51 by lballiot          #+#    #+#              #
-#    Updated: 2018/04/17 16:36:03 by lballiot         ###   ########.fr        #
+#    Updated: 2018/04/18 15:42:04 by lballiot         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME = fdf
 
-SRC = main.c ft_parser.c
+SRC = main.c ft_parser.c ft_coord.c
 
 OBJ = $(SRC:.c=.o)
 

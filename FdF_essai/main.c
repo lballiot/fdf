@@ -6,26 +6,26 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/18 12:25:02 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/18 18:30:25 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-char **ft_map(int fd)
+t_file		ft_read_check_map(int fd, t_file data)
 {
-	char *map;
-	char *line;
-	char **tab = NULL;
-	int ret;
-	
+	char	*map;
+	char	*line;
+	int		ret;
+
+	data.tab = NULL;
 	line = ft_strnew(1);
 	map = ft_strnew(1);
 	while ((ret = get_next_line(fd, &line)) == 1)
 	{
 		line = ft_add_back_n(line);
 		map = ft_strjoin_and_free(map, line);
-		ft_check_char(map); 
+		ft_check_char(map);
 	}
 	free(line);
 	if (ret == 0 && map[0] == '\0')
@@ -33,55 +33,66 @@ char **ft_map(int fd)
 		ft_putstr_fd("Map invalid : nothing to read\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	ft_check_map(map);
-	tab = ft_strsplit(map, '\n');
+	data = ft_check_map(map, data);
+	data.tab = ft_strsplit(map, '\n');
 	free(map);
-	return (tab);
+	return (data);
 }
 
-char	**ft_do_tab(char **tab, int ac, char *av)
+t_file		ft_do_tab(int ac, char *av, t_file data)
 {
 	int fd;
 
 	if (ac != 2)
-    {
-        ft_putstr_fd("Usage : ./fdf <filename> [ map ]\n", 2);
-        exit(EXIT_FAILURE);
-    }
+	{
+		ft_putstr_fd("Usage : ./fdf <filename> [ map ]\n", 2);
+		exit(EXIT_FAILURE);
+	}
 	if ((fd = open(av, O_RDONLY)) == -1)
 	{
 		ft_putstr_fd("Open failed : please use an existing file\n", 2);
-        exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-	tab = ft_map(fd);
+	data = ft_read_check_map(fd, data);
 	if (close(fd) == -1)
 	{
 		ft_putstr_fd("Close failed\n", 2);
-        exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
-	return (tab);
+	return (data);
+}
+
+t_file		init_struct(char *av)
+{
+	t_file data;
+
+	data.mlx_ptr = mlx_init(); //init obligatory 
+	data.window = mlx_new_window(data.mlx_ptr, 500, 500, av);// open window to see the map
+	(void)av; //
+	data.tab = NULL;
+	data.len = 0;
+	data.height = 0;
+	return (data);
 }
 
 int		main(int ac, char **av)
 {
-//	t_file data; ptr window mlx
-//	t_coord *coord = NULL;
-	char **tab;
+	t_file data; // ptr window mlx and other data needed
+	t_coord *coord = NULL;
 
-	tab = NULL;
-	tab = ft_do_tab(tab, ac, av[1]);
-//	coord = ft_coord(tab, coord); // for find the coordonne of x, y, z
+	data = init_struct(av[1]);
+	data = ft_do_tab(ac, av[1], data);
+	coord = ft_coord(data, coord); // for find the coordonne of x, y, z
 //	ft_bresen(100, 200, 300, 100, av[1]);
+	while (coord->next != NULL)
+	{
+		mlx_pixel_put(data.mlx_ptr, data.window, (coord->x + 200), (coord->y+ 200), 0xFFFFFF);
+		coord = coord->next;
+	}
+	mlx_loop(data.mlx_ptr);
 	return (0);
 }
 
-
-
-/*
-	data.mlx_ptr = mlx_init(); // init obligatory
-    data.window = mlx_new_window(data.mlx_ptr, 500, 500, av[1]); // open window to see the map
-	ft_putstr("titi\n");	
-*/
 
 
 /* to print tab

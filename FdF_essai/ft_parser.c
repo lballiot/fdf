@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 14:24:46 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/18 11:36:02 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/18 18:32:59 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,34 +46,32 @@ void			ft_check_char(char *map)
 	}
 }
 
-static int		ft_check_before_n(char *map)
+static t_file	ft_check_before_n(char *map, t_file data)
 {
 	int i;
-	int len_save;
 
 	i = -1;
-	len_save = 0;
 	while (map[++i] != '\n')
 		if ((map[i] != ' ' && map[i] != '-' && map[i] != '+') &&
 			(!(map[i - 1] >= '0' && map[i - 1] <= '9')))
-			len_save++;
-	return (len_save);
+			data.len++;
+	return (data);
 }
 
-void			ft_check_map(char *map)
+t_file			ft_check_map(char *map, t_file data)
 {
 	int		i;
 	int		len_line;
-	int		len_save;
 
 	i = -1;
 	len_line = 0;
-	len_save = ft_check_before_n(map);
+	data = ft_check_before_n(map, data);
 	while (map[++i])
 	{
 		if (map[i] == '\n')
 		{
-			if (len_save != len_line)
+			data.height++;
+			if (data.len != len_line)
 			{
 				ft_putstr_fd("Map invalid : wrong lenght of line\n", 2);
 				exit(EXIT_FAILURE);
@@ -84,5 +82,5 @@ void			ft_check_map(char *map)
 			if (!(map[i - 1] >= '0' && map[i - 1] <= '9'))
 				len_line++;
 	}
-	ft_putstr("check map\n");
+	return (data);
 }
