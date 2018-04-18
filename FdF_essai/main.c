@@ -6,60 +6,11 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/17 17:17:31 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/18 12:25:02 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-/*void	ft_bresen(int xa, int xb, int ya, int yb, char *av)
-{
-	void *mlx_ptr;
-	void *window;
-
-	mlx_ptr= mlx_init();
-	window = mlx_new_window(mlx_ptr, 500, 500, av);
-	int dx;
-	int dy;
-	int e;
-
-	e = xb - xa;
-	dx = e * 2;
-	dy = (yb - ya) * 2;
-	while (xa <= xb)
-	{
-		mlx_pixel_put(mlx_ptr, window, xa, ya, 0xFFFFFF);
-		xa++;
-		if ((e = e + dx) <= 0)
-		{
-			ya++;
-			e = e + dx;
-		}
-	}
-	mlx_pixel_put(mlx_ptr, window, xa, ya, 0xFFFFFF);
-	mlx_loop(mlx_ptr);
-}
-*/
-
-void	ft_bresen(int xa, int xb, int ya, int yb, char *av)
-{
-	void *mlx_ptr;
-	void *window;
-
-	mlx_ptr= mlx_init();
-	window = mlx_new_window(mlx_ptr, 500, 500, av);
-
-	int dx;
-	int dy;
-	if ((dx = xb - xa) != 0)
-	{
-		if (dx > 0)
-	}
-
-
-	mlx_pixel_put(mlx_ptr, window, xa, ya, 0xFFFFFF);
-	mlx_loop(mlx_ptr);
-}
 
 char **ft_map(int fd)
 {
@@ -88,11 +39,8 @@ char **ft_map(int fd)
 	return (tab);
 }
 
-int		main(int ac, char **av)
+char	**ft_do_tab(char **tab, int ac, char *av)
 {
-//	t_file data; ptr window mlx
-//	t_coord *coord = NULL;
-	char **tab;
 	int fd;
 
 	if (ac != 2)
@@ -100,10 +48,30 @@ int		main(int ac, char **av)
         ft_putstr_fd("Usage : ./fdf <filename> [ map ]\n", 2);
         exit(EXIT_FAILURE);
     }
-	fd = open(av[1], O_RDONLY);
+	if ((fd = open(av, O_RDONLY)) == -1)
+	{
+		ft_putstr_fd("Open failed : please use an existing file\n", 2);
+        exit(EXIT_FAILURE);
+	}
 	tab = ft_map(fd);
+	if (close(fd) == -1)
+	{
+		ft_putstr_fd("Close failed\n", 2);
+        exit(EXIT_FAILURE);
+	}
+	return (tab);
+}
+
+int		main(int ac, char **av)
+{
+//	t_file data; ptr window mlx
+//	t_coord *coord = NULL;
+	char **tab;
+
+	tab = NULL;
+	tab = ft_do_tab(tab, ac, av[1]);
 //	coord = ft_coord(tab, coord); // for find the coordonne of x, y, z
-	ft_bresen(100, 200, 50, 10, av[1]);
+//	ft_bresen(100, 200, 300, 100, av[1]);
 	return (0);
 }
 

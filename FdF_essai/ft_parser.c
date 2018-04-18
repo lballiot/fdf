@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 14:24:46 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/05 11:55:32 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/18 11:36:02 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,5 @@ void			ft_check_map(char *map)
 			if (!(map[i - 1] >= '0' && map[i - 1] <= '9'))
 				len_line++;
 	}
+	ft_putstr("check map\n");
 }
