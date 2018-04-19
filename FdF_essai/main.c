@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/18 18:30:25 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/19 16:07:07 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,12 @@ t_file		init_struct(char *av)
 	t_file data;
 
 	data.mlx_ptr = mlx_init(); //init obligatory 
-	data.window = mlx_new_window(data.mlx_ptr, 500, 500, av);// open window to see the map
-	(void)av; //
+	data.window = NULL;
+	data.av = ft_strdup(av);
 	data.tab = NULL;
 	data.len = 0;
 	data.height = 0;
+	data.zoom = 20;
 	return (data);
 }
 
@@ -84,15 +85,22 @@ int		main(int ac, char **av)
 	data = ft_do_tab(ac, av[1], data);
 	coord = ft_coord(data, coord); // for find the coordonne of x, y, z
 //	ft_bresen(100, 200, 300, 100, av[1]);
+//  print the maps after modification for the zoom and the placement oh the maps
+	ft_modification(&data, coord); 
+	ft_putstr("toto\n");
 	while (coord->next != NULL)
 	{
-		mlx_pixel_put(data.mlx_ptr, data.window, (coord->x + 200), (coord->y+ 200), 0xFFFFFF);
+		mlx_pixel_put(data.mlx_ptr, data.window, (coord->x * data.zoom), (coord->y * data.zoom), 0xFFFFFF);
 		coord = coord->next;
 	}
+	mlx_pixel_put(data.mlx_ptr, data.window, (coord->x * data.zoom), (coord->y * data.zoom), 0xFE0000);
+	ft_putstr("len = ");
+	ft_putnbr(data.len);
+	ft_putstr("\nheight = ");
+	ft_putnbr(data.height);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
-
 
 
 /* to print tab

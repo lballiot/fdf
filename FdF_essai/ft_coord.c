@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/18 18:22:09 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/19 16:16:16 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_coord		*ft_coord(t_file data, t_coord *coord)
 		tab_split = ft_strsplit(data.tab[i], ' ');
 		while (tab_split[j])
 		{
-			coord = ft_add_coord(coord, i , j, tab_split[j]); // replace 0 by y
+			coord = ft_add_coord(coord, i , j, tab_split[j]); 
 			j++;
 		}
 		free(tab_split);

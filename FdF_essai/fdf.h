@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/18 18:29:52 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/19 15:48:51 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ typedef struct		s_file
 	char **tab;
 	int len;
 	int height;
+	int zoom;
+	char *av;
 }					t_file;
 
 typedef struct		s_coord
@@ -45,6 +47,8 @@ void	ft_check_char(char *map);
 char	*ft_add_back_n(char *line);
 
 t_coord	*ft_coord(t_file data, t_coord *coord);
+
+void	ft_modification(t_file *data, t_coord *coord);
 
 t_file	ft_check_map(char *map, t_file data);
 
