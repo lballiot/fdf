@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/19 16:07:07 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/20 14:02:34 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		main(int ac, char **av)
 	data = ft_do_tab(ac, av[1], data);
 	coord = ft_coord(data, coord); // for find the coordonne of x, y, z
 //	ft_bresen(100, 200, 300, 100, av[1]);
-//  print the maps after modification for the zoom and the placement oh the maps
+//  print the maps after modification for the zoom and the placement of the maps
 	ft_modification(&data, coord); 
 	ft_putstr("toto\n");
 	while (coord->next != NULL)

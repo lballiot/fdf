@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 14:59:33 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/19 16:07:23 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/20 14:40:21 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,18 @@ int deal_key(int key, void **param)
 void	ft_modification(t_file *data, t_coord *coord)
 {
 	int width;
-//	int height;
+	int height;
 
-	width = data->len * data->zoom;
+	width = (data->len + 10) * data->zoom;
+	height = (data->height + 10) * data->zoom;
 	ft_putstr("largeur = ");
 	ft_putnbr(width);
 	ft_putchar('\n');
-	data->window = mlx_new_window(data->mlx_ptr, 2000, 1395, data->av);// open window to see the map
+	if (width > 2560)
+		width = 2560;
+	if (height > 1395)
+		height = 1395;
+	data->window = mlx_new_window(data->mlx_ptr, width, height, data->av);// open window to see the map
 	mlx_key_hook(data->window, deal_key, (void *)&data);
 	(void)coord;
 }
