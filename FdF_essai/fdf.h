@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/19 15:48:51 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/23 15:45:20 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,12 @@ typedef struct		s_file
 
 typedef struct		s_coord
 {
-	int x;
-	int y;
-	int z;
-	int x_right;
-	int y_right;
-	int z_right;
-	int x_down;
-	int y_down;
-	int z_down;
+	int point[3];
+				//	point[0] =  x;
+				//	point[1] =  y;
+				//	point[2] =  z;
+	int right[3];
+	int down[3];
 	struct s_coord *next;
 }					t_coord;
 

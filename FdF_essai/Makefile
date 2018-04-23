@@ -6,13 +6,13 @@
 #    By: lballiot <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/30 11:48:51 by lballiot          #+#    #+#              #
-#    Updated: 2018/04/19 15:01:24 by lballiot         ###   ########.fr        #
+#    Updated: 2018/04/23 17:43:34 by lballiot         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME = fdf
 
-SRC = main.c ft_parser.c ft_coord.c ft_modif.c
+SRC = main.c ft_parser.c ft_coord.c ft_modif.c test_bresen.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -36,9 +36,11 @@ $(NAME) : $(OBJ)
 
 clean :
 	@$(RM) $(OBJ)
+	@make clean -C libft
 
 fclean : clean
 	@$(RM) $(NAME)
+	@make fclean -C libft
 
 re : fclean all
 

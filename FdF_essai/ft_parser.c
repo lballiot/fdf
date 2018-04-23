@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 14:24:46 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/19 15:32:13 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/23 14:28:00 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char			*ft_add_back_n(char *line)
 		i++;
 	}
 	tmp[i] = '\n';
+	tmp[i + 1] = '\0';
 	ft_strdel(&line);
 	return (tmp);
 }
@@ -46,7 +47,7 @@ void			ft_check_char(char *map)
 	}
 }
 
-static t_file	ft_check_before_n(char *map, t_file data)
+static t_file	ft_check_before_eol(char *map, t_file data)
 {
 	int i;
 
@@ -65,7 +66,7 @@ t_file			ft_check_map(char *map, t_file data)
 
 	i = -1;
 	len_line = 0;
-	data = ft_check_before_n(map, data);
+	data = ft_check_before_eol(map, data);
 	while (map[++i])
 	{
 		if (map[i] == '\n')
