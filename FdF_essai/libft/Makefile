@@ -6,7 +6,7 @@
 #    By: lballiot <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 18:13:52 by lballiot          #+#    #+#              #
-#    Updated: 2018/03/22 15:23:00 by lballiot         ###   ########.fr        #
+#    Updated: 2018/04/26 17:11:54 by lballiot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ SRC = ft_memset.c \
 
 OBJ = $(SRC:.c=.o)
 
-CC = gcc
+CC = clang
 
 CFLAGS = -Wall -Werror -Wextra
 
@@ -94,16 +94,18 @@ HPATH = -I .
 
 RM = rm -rf
 
-$(NAME) :
-	$(CC) -c $(CFLAGS) $(HPATH) $(SRC)
-	ar rc $(NAME) $(OBJ)
-	ranlib $(NAME)
+%.c.o :
+	@$(CC) -c $(CFLAGS) $(HPATH) $(SRC)
+
+$(NAME) : $(OBJ)
+	@ar rc $(NAME) $(OBJ)
+	@ranlib $(NAME)
 
 clean :
-	$(RM) $(OBJ)
+	@$(RM) $(OBJ)
 
 fclean : clean
-	$(RM) $(NAME)
+	@$(RM) $(NAME)
 
 re : fclean all
 
