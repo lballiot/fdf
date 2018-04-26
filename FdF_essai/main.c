@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/23 17:09:01 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/26 11:50:25 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_file		ft_do_tab(int ac, char *av, t_file data)
 		ft_putstr_fd("Usage : ./fdf <filename> [ map ]\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	if ((fd = open(av, O_RDONLY)) == -1)
+	if ((fd = open(av, O_RDONLY)) < 0)
 	{
 		ft_putstr_fd("Open failed : please use an existing file\n", 2);
 		exit(EXIT_FAILURE);
@@ -87,8 +87,6 @@ void	ft_test_grid(t_file data, t_coord *coord)
 
 }
 
-void    ft_bresen(int xa, int xb, int ya, int yb, char *av);
-
 int		main(int ac, char **av)
 {
 	t_file data; // ptr window mlx and other data needed
@@ -106,7 +104,7 @@ int		main(int ac, char **av)
 	}
 	mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0xFE0000);
 //	ft_bresen(coord->point[0], coord->right[0], coord->point[1], coord->right[1], av[1]);
-//	ft_test_grid(data, coord);
+	ft_test_grid(data, coord);
 //	mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0xFE0000);
 //	mlx_pixel_put(data.mlx_ptr, data.window, (coord->right[0] * data.zoom), (coord->right[1] * data.zoom), 0xFFFFFF);
 	ft_putstr("len = ");

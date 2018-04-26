@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 14:24:46 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/23 14:28:00 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/26 11:53:15 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ static t_file	ft_check_before_eol(char *map, t_file data)
 	int i;
 
 	i = -1;
-	while (map[++i] != '\n')
-		if ((map[i] != ' ' && map[i] != '-' && map[i] != '+') &&
-			(!(map[i - 1] >= '0' && map[i - 1] <= '9')))
+	while (map[++i] != '\n' && map[i] != '\0')
+		if (((map[i] >= '0' && map[i] <= '9') && (!(map[i - 1] >= '0' &&
+													map[i - 1] <= '9')))
+			|| ((map[i] >= '0' && map[i] <= '9') && i == 0))
 			data.len++;
 	return (data);
 }
@@ -79,9 +80,10 @@ t_file			ft_check_map(char *map, t_file data)
 			}
 			len_line = 0;
 		}
-		if (map[i] != ' ' && map[i] != '\n' && map[i] != '-' && map[i] != '+')
-			if (!(map[i - 1] >= '0' && map[i - 1] <= '9'))
-				len_line++;
+		if (((map[i] >= '0' && map[i] <= '9') && (!(map[i - 1] >= '0' &&
+													map[i - 1] <= '9')))
+			|| ((map[i] >= '0' && map[i] <= '9') && i == 0))
+			len_line++;
 	}
 	return (data);
 }
