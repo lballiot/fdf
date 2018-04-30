@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/26 17:50:17 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/30 13:55:17 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,6 @@ t_coord		*ft_coord(t_file data, t_coord *coord)
 		j = 0;
 		i++;
 	}
-	ft_putstr("toto\n");
 	return (coord);
 }
 

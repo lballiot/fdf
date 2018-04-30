@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/26 17:35:06 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/30 15:38:57 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_test_grid(t_file data, t_coord *coord)
 {
 	while (data.len > 0)
 	{
-		mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0x0008FE);
+		mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0x28B212); // * data->zoom else it'll be so small
 		coord->point[1]--;
 		data.len--;
 	}
@@ -118,7 +118,7 @@ int			main(int ac, char **av)
 	coord = NULL;
 	data = init_struct(av[1]);
 	data = ft_do_tab(ac, av[1], data);
-	coord = ft_coord(data, coord); // for find the coordonne of x, y, z
+	coord = ft_coord(data, coord);
 //  print the maps after modification for the zoom and the placement of the maps
 	ft_modification(&data, coord);
 	while (coord->next != NULL)
@@ -127,7 +127,7 @@ int			main(int ac, char **av)
 		coord = coord->next;
 	}
 	mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0xFE0000);
-//	ft_bresen(coord->point[0], coord->right[0], coord->point[1], coord->right[1], av[1]);
+	ft_bresen(data, coord);
 	ft_test_grid(data, coord);
 	ft_putstr("len = ");
 	ft_putnbr(data.len);
