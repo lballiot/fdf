@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/30 15:06:11 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/03 13:47:58 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,22 @@ typedef struct		s_coord
 	int down[3];
 	struct s_coord *next;
 }					t_coord;
+
+typedef	struct		s_bresen
+{
+//	int	xi;
+//	int	yi;
+//	int	xf;
+//	int yf;
+	int dx;
+	int dy;
+	int i;
+	int xinc;
+	int yinc;
+	int cumul;
+	int x;
+	int y;
+}					t_bresen;
 
 void	ft_check_char(char *map);
 

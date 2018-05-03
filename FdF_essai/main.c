@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/30 15:38:57 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/03 16:19:19 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,6 @@ t_file		init_struct(char *av)
 	return (data);
 }
 
-void	ft_test_grid(t_file data, t_coord *coord)
-{
-	while (data.len > 0)
-	{
-		mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0x28B212); // * data->zoom else it'll be so small
-		coord->point[1]--;
-		data.len--;
-	}
-}
-
 int			main(int ac, char **av)
 {
 	t_file	data; // ptr window mlx and other data needed
@@ -123,12 +113,12 @@ int			main(int ac, char **av)
 	ft_modification(&data, coord);
 	while (coord->next != NULL)
 	{
-		mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0xFFFFFF);
+		ft_bresen(data, coord);
+//		mlx_pixel_put(data.mlx_ptr, data.window, coord->point[0], coord->point[1], 0x33FFFF);
 		coord = coord->next;
 	}
-	mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0xFE0000);
-	ft_bresen(data, coord);
-	ft_test_grid(data, coord);
+//	mlx_pixel_put(data.mlx_ptr, data.window, (coord->point[0] * data.zoom), (coord->point[1] * data.zoom), 0xFE0000);
+//	ft_bresen(data, coord);
 	ft_putstr("len = ");
 	ft_putnbr(data.len);
 	ft_putstr("\nheight = ");
