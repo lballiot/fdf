@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/04 12:07:49 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/04 16:06:43 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,33 @@ t_coord		*ft_add_coord(t_coord *coord, int t[9], t_file data)
 	elem->point[1] = (t[1] + (center - 5)) * data.zoom;
 	elem->point[2] = t[2];
 	elem->right[0] = (t[3] + center) * data.zoom; 
-	elem->right[1] = (t[4] + (center - 5)) * data.zoom;
+	elem->right[1] = (t[4] + (center - 5)) * data.zoom;			//GOOD ELEM
 	elem->right[2] = t[5];
 	elem->down[0] = (t[6] + center) * data.zoom; 
 	elem->down[1] = (t[7] + (center - 5)) * data.zoom;
 	elem->down[2] = t[8];
 	elem->next = NULL;
 
-//x = cte1 * x - cte2 * y
-//y = z + cte1 / 2 * x + cte2 / 2 * y
+	ft_putstr("x = ");
+	ft_putnbr(elem->point[0]);
+	ft_putstr("\ny = ");
+	ft_putnbr(elem->point[1]);
+	ft_putstr("\nz = ");
+	ft_putnbr(elem->point[2]);
+	ft_putstr("\nx = ");
+	ft_putnbr(elem->right[0]);
+	ft_putstr("\ny = ");
+	ft_putnbr(elem->right[1]);
+	ft_putstr("\nz = ");
+	ft_putnbr(elem->right[2]);
+	ft_putstr("\nx = ");
+	ft_putnbr(elem->down[0]);
+	ft_putstr("\ny = ");
+	ft_putnbr(elem->down[1]);
+	ft_putstr("\nz = ");
+	ft_putnbr(elem->down[2]);
+	ft_putstr("\n");
+	ft_putstr("ELELELELELELELELELELE\n");
 
 
 //	elem->point[0] = (elem->point[1] / data.height) + (elem->point[0] / data.len);
@@ -43,12 +61,14 @@ t_coord		*ft_add_coord(t_coord *coord, int t[9], t_file data)
 //	elem->down[0] = (elem->down[1] / data.height) + (elem->down[0] / data.len);
 //	elem->down[1] = (elem->down[1] / data.height) - (elem->down[0] / data.len);
 
-//	elem->point[0] = (int)(((0.07 * (float)elem->point[0] - 0.07 * (float)elem->point[1] * data.zoom)));
-//	elem->point[1] = (int)(((0.04 * (float)elem->point[0] + 0.04 * (float)elem->point[1]) - 0.2 * (float)(t[1]) * data.zoom));
-//	elem->right[0] = (int)(((0.07 * (float)elem->right[0] - 0.07 * (float)elem->right[1] * data.zoom)));
-//	elem->right[1] = (int)(((0.04 * (float)elem->right[0] + 0.04 * (float)elem->right[1]) - 0.2 * (float)(t[4])* data.zoom));
-//	elem->down[0] = (int)(((0.07 * (float)elem->down[0] - 0.07 * (float)elem->down[1] * data.zoom)));
-//	elem->down[1] = (int)(((0.04 * (float)elem->down[0] + 0.04 * (float)elem->down[1]) - 0.2 * (float)(t[7]) * data.zoom));
+	elem->point[1] = (int)((0.6 * (float)elem->point[0] - 0.8 * (float)elem->point[1]) * data.zoom);
+	elem->point[0] = (int)(((float)elem->point[2] + 0.6 / 2 * (float)elem->point[0] - 0.8 / 2 * (float)elem->point[1]) * data.zoom);
+	elem->right[1] = (int)((0.6 * (float)elem->right[0] - 0.8 * (float)elem->right[1]) * data.zoom);
+	elem->right[0] = (int)(((float)elem->right[2] + 0.6 / 2 * (float)elem->right[0] - 0.8 / 2 * (float)elem->right[1]) * data.zoom);
+	elem->down[1] = (int)((0.6 * (float)elem->down[0] - 0.8 * (float)elem->down[1]) * data.zoom);
+	elem->down[0] = (int)(((float)elem->down[2] + 0.6 / 2 * (float)elem->down[0] - 0.8 / 2 * (float)elem->down[1]) * data.zoom);
+
+
 	if (coord == NULL)
 	{
 		coord = elem;
@@ -60,6 +80,26 @@ t_coord		*ft_add_coord(t_coord *coord, int t[9], t_file data)
             coord = coord->next;
 		coord->next = elem;
 	}
+	ft_putstr("x = ");
+	ft_putnbr(coord->point[0]);
+	ft_putstr("\ny = ");
+	ft_putnbr(coord->point[1]);
+	ft_putstr("\nz = ");
+	ft_putnbr(coord->point[2]);
+	ft_putstr("\nx = ");
+	ft_putnbr(coord->right[0]);
+	ft_putstr("\ny = ");
+	ft_putnbr(coord->right[1]);
+	ft_putstr("\nz = ");
+	ft_putnbr(coord->right[2]);
+	ft_putstr("\nx = ");
+	ft_putnbr(coord->down[0]);
+	ft_putstr("\ny = ");
+	ft_putnbr(coord->down[1]);
+	ft_putstr("\nz = ");
+	ft_putnbr(coord->down[2]);
+	ft_putstr("\n");
+	ft_putstr("endendnednedend\n");
 	coord = tmp;
 	return (coord);
 }
@@ -106,6 +146,16 @@ t_coord		*ft_coord(t_file data, t_coord *coord)
 				tab_down[j + 1] = NULL;
 			}
 //			*t = ft_fill_t(i, j, t, tab_split);
+			int k = 0;
+			while (k < 9)
+			{
+				ft_putstr("tab[");
+				ft_putnbr(k);
+				ft_putstr("] = ");
+				ft_putnbr(t[k]);
+				ft_putstr("\n");
+				k++;
+			}
 			coord = ft_add_coord(coord, t, data); 
 			j++;
 		}
@@ -169,6 +219,7 @@ t_coord		*ft_coord(t_file data, t_coord *coord)
 		ft_putstr("\n");
 		coord = coord->next;
 	}
+
 */
 
 

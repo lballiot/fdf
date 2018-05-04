@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/04 10:49:04 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/04 11:10:32 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ t_file		init_struct(char *av)
 {
 	t_file data;
 
-	data.mlx_ptr = mlx_init();
+	if (!(data.mlx_ptr = mlx_init()))
+		exit(EXIT_FAILURE);
 	data.window = NULL;
 	data.av = ft_strdup(ft_title(av));
 	data.tab = NULL;
