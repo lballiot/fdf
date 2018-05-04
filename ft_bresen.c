@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 13:55:42 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/03 15:49:30 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/04 10:49:21 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 	s.cumul = 0;
 	s.i = 0;
 //	init_bresen(&s, coord);
-	mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), 0xFFFFFFF);
+	mlx_pixel_put(data.mlx_ptr, data.window, (s.y), (s.x), 0xFFFFFFF);
 	if (s.dx > s.dy) //vertical rouge
 	{
 		s.cumul = s.dx / 2;
@@ -55,7 +55,7 @@ void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 				s.cumul -= s.dx;
 				s.y += s.yinc;
 			}
-			mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), 0xFE0000);
+			mlx_pixel_put(data.mlx_ptr, data.window, (s.y), (s.x), 0xFFFFFF);
 		}
 	}
 	else //horizontal blanc
@@ -71,7 +71,7 @@ void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 				s.cumul -= s.dy;
 				s.x += s.xinc;
 			}
-			mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), 0xFFFFFF);
+			mlx_pixel_put(data.mlx_ptr, data.window, (s.y), (s.x), 0xFFFFFF);
 		}
 	}
 }
@@ -80,13 +80,7 @@ void	ft_bresen(t_file data, t_coord *coord)
 {
 	(void)data;
 	(void)coord;
-//	ft_test(20, 50, 30, 50, data);
 	ft_test(coord->point[0], coord->point[1], coord->right[0], coord->right[1], data);
-//	ft_putstr("down[0] = ");
-//	ft_putnbr(coord->down[0]);
-//	ft_putstr("\npoint[0] = ");
-//	ft_putnbr(coord->point[0]);
-	if (coord->down[0] != coord->point[0])
-		ft_test(coord->point[0], coord->point[1], coord->down[0], coord->down[1], data);
+	ft_test(coord->point[0], coord->point[1], coord->down[0], coord->down[1], data);
 //	init_bresen(&s, coord);
 }

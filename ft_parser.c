@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 14:24:46 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/05 11:55:32 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/26 11:53:15 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ char			*ft_add_back_n(char *line)
 		i++;
 	}
 	tmp[i] = '\n';
+	tmp[i + 1] = '\0';
 	ft_strdel(&line);
 	return (tmp);
 }
@@ -46,42 +47,43 @@ void			ft_check_char(char *map)
 	}
 }
 
-static int		ft_check_before_n(char *map)
+static t_file	ft_check_before_eol(char *map, t_file data)
 {
 	int i;
-	int len_save;
 
 	i = -1;
-	len_save = 0;
-	while (map[++i] != '\n')
-		if ((map[i] != ' ' && map[i] != '-' && map[i] != '+') &&
-			(!(map[i - 1] >= '0' && map[i - 1] <= '9')))
-			len_save++;
-	return (len_save);
+	while (map[++i] != '\n' && map[i] != '\0')
+		if (((map[i] >= '0' && map[i] <= '9') && (!(map[i - 1] >= '0' &&
+													map[i - 1] <= '9')))
+			|| ((map[i] >= '0' && map[i] <= '9') && i == 0))
+			data.len++;
+	return (data);
 }
 
-void			ft_check_map(char *map)
+t_file			ft_check_map(char *map, t_file data)
 {
 	int		i;
 	int		len_line;
-	int		len_save;
 
 	i = -1;
 	len_line = 0;
-	len_save = ft_check_before_n(map);
+	data = ft_check_before_eol(map, data);
 	while (map[++i])
 	{
 		if (map[i] == '\n')
 		{
-			if (len_save != len_line)
+			data.height++;
+			if (data.len != len_line)
 			{
 				ft_putstr_fd("Map invalid : wrong lenght of line\n", 2);
 				exit(EXIT_FAILURE);
 			}
 			len_line = 0;
 		}
-		if (map[i] != ' ' && map[i] != '\n' && map[i] != '-' && map[i] != '+')
-			if (!(map[i - 1] >= '0' && map[i - 1] <= '9'))
-				len_line++;
+		if (((map[i] >= '0' && map[i] <= '9') && (!(map[i - 1] >= '0' &&
+													map[i - 1] <= '9')))
+			|| ((map[i] >= '0' && map[i] <= '9') && i == 0))
+			len_line++;
 	}
+	return (data);
 }

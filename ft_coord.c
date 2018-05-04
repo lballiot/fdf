@@ -5,170 +5,152 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/30 16:02:34 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/06 10:52:32 by lballiot         ###   ########.fr       */
+/*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
+/*   Updated: 2018/05/04 10:51:27 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_coord		*ft_find_z(char **tab, t_coord *coord)
+t_coord		*ft_add_coord(t_coord *coord, int t[9], t_file data)
 {
-	t_coord *tmp_link;
-	char **tab_split;
-	tmp_link = coord;
-	int i = 0;
-	int j = 0;
+	t_coord *elem;
+	int center;
+    static t_coord *tmp; //free tmp but when ????????
 
-	while (tab[i])
+    if (!(elem=(t_coord *)malloc(sizeof(t_coord))))
+        return (NULL);
+	center = data.zoom / 2;
+	elem->point[0] = (t[0] + center) * data.zoom; 
+	elem->point[1] = (t[1] + (center - 5)) * data.zoom;
+	elem->point[2] = t[2];
+	elem->right[0] = (t[3] + center) * data.zoom; 
+	elem->right[1] = (t[4] + (center - 5)) * data.zoom;
+	elem->right[2] = t[5];
+	elem->down[0] = (t[6] + center) * data.zoom; 
+	elem->down[1] = (t[7] + (center - 5)) * data.zoom;
+	elem->down[2] = t[8];
+	elem->next = NULL;
+	if (coord == NULL)
 	{
-		ft_putstr("tab[i] =");
-		ft_putstr(tab[i]);
-		ft_putstr("= \n");
-		tab_split = ft_strsplit(tab[i], ' ');
-		while (tab_split[j])
-		{
-			coord->z = ft_atoi(tab_split[j]);
-			ft_putstr("coord->z = ");
-			ft_putnbr(coord->z);
-			ft_putstr("\n");
-			coord = coord->next;
-			ft_putstr("coord->x = ");
-			ft_putnbr(coord->x);
-			ft_putstr("\n");
-
-
-
-
-			ft_putstr("tab[");
-			ft_putnbr(j);
-			ft_putstr("] = ");
-			ft_putstr(tab_split[j]);
-			ft_putchar('\n');
-			ft_putstr("coord->z = ");
-			ft_putnbr(coord->z);
-			ft_putstr("\n");
-			j++;
-			coord = coord->next;
-		}
-		j = 0;
-		i++;
+		coord = elem;
+		tmp = coord;
 	}
-	coord = tmp_link;
+	else
+    {
+        while (coord->next != NULL)
+            coord = coord->next;
+		coord->next = elem;
+	}
+	coord = tmp;
 	return (coord);
 }
 
-t_coord		*ft_coord(char **tab, t_coord *coord)
+t_coord		*ft_coord(t_file data, t_coord *coord)
 {
-	int i = 0;
+	int t[9];
+	int i = -1;
 	int j = 0;
-	t_coord *tmp_link;
-	int place = 0;
-	char **tab_split;
-
-	if (tab)
-		if (!(coord = (t_coord *)malloc(sizeof(t_coord))))
-			return (NULL);
-	while (tab[i])
-	{
-//		ft_putstr("\n");//
-//		ft_putstr("tab[");//
-//      ft_putnbr(i);//
-//      ft_putstr("] =");//
-//      ft_putstr(tab[i]);//
-//       ft_putstr("=\n");//
-		while (tab[i][j])
-		{
-//			ft_putstr("tab[");//
-//			ft_putnbr(i);//
-//			ft_putstr("][");//
-//			ft_putnbr(j);//
-//			ft_putstr("] = ");//
-//			ft_putchar(tab[i][j]);//
-//			ft_putchar('\n');//
-			if (j != 0)
-				if ((tab[i][j] >= '0' && tab[i][j] <= '9') && !(tab[i][j - 1] >= '0' && tab[i][j - 1] <= '9'))
-						place++;
-			if (tab[i][j] >= '0' && tab[i][j] <= '9')
-			{
-				if (!(coord = (t_coord *)malloc(sizeof(t_coord))))
-					return (NULL);
-// X	OK
-				coord->x = i;
-//				ft_putstr("coord->x = ");
-//				ft_putnbr(coord->x);
-//				ft_putstr("\n");
-// Y	OK 
-				if (!(tab[i][j - 1] >= '0' && tab[i][j - 1] <= '9'))
-				{
-					coord->y = place;
-//					ft_putstr("coord->y = ");
-//					ft_putnbr(coord->y);
-//					ft_putstr("\n");
-				}
-// Z		atoi du ou des chiffres + split space 
-				if (i == 0 && place == 0)
-					tmp_link = coord;
-			}
-			j++;
-		}
-		j = 0;
-		place = 0;
-		coord = coord->next;
-		i++;
-	}
-	coord = tmp_link;
-	while(coord->next != NULL)
-	{
-		ft_putstr("coord->x = ");
-		ft_putnbr(coord->x);
-		ft_putstr("\n");
-		ft_putstr("coord->y = ");
-		ft_putnbr(coord->y);
-		ft_putstr("\n");
-		ft_putstr("coord->z = ");
-		ft_putnbr(coord->z);
-		ft_putstr("\n");
-		ft_putstr("TOTO\n");
-		coord = coord->next;
-		
-	}
+	char **tab_split = NULL;
+	char **tab_down = NULL;
 	
-	i = -1;
-	j = -1;
-	coord = tmp_link;
-	while (tab[++i])
+	while(i < 9)
+		t[++i] = 0;
+	i = 0;
+	while(data.tab[i] != NULL)
 	{
-		ft_putstr("\n");
-		ft_putstr("tab[i] =");
-		ft_putstr(tab[i]);
-		ft_putstr("= \n");
-		tab_split = ft_strsplit(tab[i], ' ');
-		free(tab[i]);
-		while (tab_split[++j] && coord->next != NULL)
+		tab_split = ft_strsplit(data.tab[i], ' ');
+		if (data.tab[i + 1] != NULL)
+			tab_down = ft_strsplit(data.tab[i + 1], ' ');
+		while(tab_split[j] != NULL)
 		{
-			ft_putstr("\nBOUCLE\n");
-			coord->z = ft_atoi(tab_split[j]);
-			ft_putstr("tab[");
-			ft_putnbr(j);
-			ft_putstr("] = ");
-			ft_putstr(tab_split[j]);
-			ft_putchar('\n');
-			ft_putstr("coord->z = ");
-			ft_putnbr(coord->z);
-			ft_putstr("\n");
-			if (i == 0 && j == 0)
-				tmp_link = coord;
-			coord = coord->next;
+			t[0] = i; // x
+			t[1] = j; // y
+			t[2] = ft_atoi(tab_split[j]); // z
+			if (tab_split[j + 1] != NULL)
+			{
+				t[3] = i; // x_right
+				t[4] = j + 1 ; // y_right
+				t[5] = ft_atoi(tab_split[j + 1]); //z_right
+			}
+// find the coord of down
+			if (tab_down[j] != NULL)
+			{
+				t[6] = i + 1;//x_down
+				t[7] = j;//y_down
+				t[8] = ft_atoi(tab_down[j]);//z_down
+			}
+			else //if tab_down doesnt exist t[6] = -1 so error 
+			{
+				t[6] = i;//x_down
+				t[7] = j;//y_down
+				t[8] = ft_atoi(tab_split[j]);//z_down
+				tab_down[j + 1] = NULL;
+			}
+//			*t = ft_fill_t(i, j, t, tab_split);
+			coord = ft_add_coord(coord, t, data); 
+			j++;
 		}
-		j = -1;
+		ft_memdel((void *)tab_down);
+		free(tab_split);
+		j = 0;
+		i++;
 	}
-	coord = tmp_link;
-	ft_putstr("ENENENENENENEND\n");
-//	coord = ft_find_z(tab, coord);
-//	ft_putstr("coord->z = ");
-//	ft_putnbr(coord->z);
-//	ft_putstr("\n");
-
 	return (coord);
 }
+
+
+/////////////////////////////////////
+//       TO PRINT THE LIST         //
+/////////////////////////////////////
+
+/*
+
+    ft_putstr("down[0] = ");
+    ft_putnbr(coord->down[0]);
+    ft_putstr("\npoint[0] = ");
+    ft_putnbr(coord->point[0]);
+	ft_putstr("\n");
+
+
+	while (coord->next != NULL)
+	{
+		ft_putstr("x = ");
+		ft_putnbr(coord->point[0]);
+		ft_putstr("\ny = ");
+		ft_putnbr(coord->point[1]);
+		ft_putstr("\nz = ");
+		ft_putnbr(coord->point[2]);
+		ft_putstr("\nx = ");
+		ft_putnbr(coord->right[0]);
+		ft_putstr("\ny = ");
+		ft_putnbr(coord->right[1]);
+		ft_putstr("\nz = ");
+		ft_putnbr(coord->right[2]);
+		ft_putstr("\nx = ");
+		ft_putnbr(coord->down[0]);
+		ft_putstr("\ny = ");
+		ft_putnbr(coord->down[1]);
+		ft_putstr("\nz = ");
+		ft_putnbr(coord->down[2]);
+		ft_putstr("\n");
+		ft_putstr("endendnednedend\n");
+		coord = coord->next;
+	}
+	coord = tmp;
+
+
+	while (coord->next != NULL)
+	{
+		ft_putstr("x = ");
+		ft_putnbr(coord->point[0]);
+		ft_putstr("\ny = ");
+		ft_putnbr(coord->point[1]);
+		ft_putstr("\nz = ");
+		ft_putnbr(coord->point[2]);
+		ft_putstr("\n");
+		coord = coord->next;
+	}
+*/
+
+

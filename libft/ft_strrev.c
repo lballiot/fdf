@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/07/12 14:02:48 by lballiot          #+#    #+#             */
-/*   Updated: 2017/12/11 13:58:40 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/04/26 17:05:19 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,20 @@
 
 char	*ft_strrev(char *str)
 {
-	int strrev[8];
-	int i;
+	char	*strrev;
+	size_t	i;
+	size_t	j;
 
+	j = ft_strlen(str) - 1;
 	i = 0;
-	while (*str)
+	if (!(strrev = (char *)malloc(sizeof(char) * j + 2)))
+		return (NULL);
+	while (str[j])
 	{
-		*strrev = str[i];
-		str[i]++;
+		strrev[i] = str[j];
+		i++;
+		j--;
 	}
-	*str = *strrev;
-	return (str);
+	strrev[i] = '\0';
+	return (strrev);
 }
