@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 14:59:33 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/11 12:24:04 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/11 13:41:44 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,53 +35,9 @@ void	ft_modification(t_file *data, t_coord *coord)
 {
 	int width;
 	int height;
+//	int i = 0;
+	
 
-	ft_putstr("x = ");
-	ft_putnbr(coord->point[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->point[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->point[2]);
-	ft_putstr("\nx = ");
-	ft_putnbr(coord->right[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->right[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->right[2]);
-	ft_putstr("\nx = ");
-	ft_putnbr(coord->down[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->down[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->down[2]);
-	ft_putstr("\n");
-	ft_putstr("endendnednedend\n");
-	
-    while (coord->next != NULL)
-    {
-        coord = coord->next;
-	}
-	ft_putstr("x = ");
-	ft_putnbr(coord->point[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->point[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->point[2]);
-	ft_putstr("\nx = ");
-	ft_putnbr(coord->right[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->right[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->right[2]);
-	ft_putstr("\nx = ");
-	ft_putnbr(coord->down[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->down[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->down[2]);
-	ft_putstr("\n");
-	ft_putstr("endendnednedend\n");
-	
 
 	width = (data->zoom + 1) * data->len;
 	height = (data->zoom + 1) * data->height;
@@ -92,6 +48,41 @@ void	ft_modification(t_file *data, t_coord *coord)
 	printf("width = %d\theight = %d\n", width, height);
 	data->window = mlx_new_window(data->mlx_ptr, width, height, data->av);
 // modif zoom
+/*printf("width = %d\theight = %d\n", width, height);
+    while (coord->next != NULL)
+    {
+		ft_putstr("x = ");
+		ft_putnbr(coord->point[0]);
+		ft_putstr("\ny = ");
+		ft_putnbr(coord->point[1]);
+		ft_putstr("\nz = ");
+		ft_putnbr(coord->point[2]);
+		i++;
+		ft_putstr("\n i = ");
+		ft_putnbr(i);
+		ft_putstr("\n");
+
+		if (coord->point[0] > width || coord->point[1] > height || coord->point[0] < 0 || coord->point[1] < 0)					
+		{
+			printf("DEBUT width = %d\theight = %d\n", width, height);
+			while (coord->point[0] > width || coord->point[1] > height || coord->point[0] < 0 || coord->point[1] < 0)
+			{
+//				ft_putstr("ICICICI\n");
+				data->zoom--;
+				width = (data->zoom + 1) * data->len;
+				height = (data->zoom + 1) * data->height;
+				printf("width = %d\theight = %d\n", width, height);
+				}
+			data->zoom = 50;
+		}
+        coord = coord->next;
+	}
+	coord = data->tmp;
+//	coord = ft_coord(*data, coord);
+	printf("data.zoom = %d\n", data->zoom);
+*/
+
+
 	mlx_key_hook(data->window, deal_key, (void *)&data);
 	(void)coord;
 }

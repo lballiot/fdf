@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/03 13:47:58 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/11 13:49:57 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,6 @@
 # include <math.h>
 # include "libft/libft.h"
 
-typedef struct		s_file
-{
-	void *mlx_ptr;
-	void *window;
-	char **tab;
-	int len;
-	int height;
-	int zoom;
-	char *av;
-}					t_file;
-
 typedef struct		s_coord
 {
 	int point[3];
@@ -39,6 +28,23 @@ typedef struct		s_coord
 	int down[3];
 	struct s_coord *next;
 }					t_coord;
+
+typedef struct		s_file
+{
+	void *mlx_ptr;
+	void *window;
+	char **tab;
+	int len;
+	int height;
+	int zoom;
+	char *av;
+	t_coord *tmp;
+	int t[9];
+	int min_x;
+	int min_y;
+	int max_x;
+	int max_y;
+}					t_file;
 
 typedef	struct		s_bresen
 {

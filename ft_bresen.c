@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 13:55:42 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/11 12:28:51 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/11 13:42:50 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 				s.cumul -= s.dx;
 				s.y += s.yinc;
 			}
+			color -= 500;
 
 			
 			mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), color);
@@ -73,10 +74,11 @@ void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 			s.cumul += s.dx;
 			if (s.cumul >= s.dy)
 			{
-			color += 500;
 				s.cumul -= s.dy;
 				s.x += s.xinc;
 			}
+			color += 500;
+
 			mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), color);
 		}
 		}
