@@ -15,6 +15,7 @@
 
 # include <mlx.h>
 # include <fcntl.h>
+# include <math.h>
 # include "libft/libft.h"
 
 typedef struct		s_file

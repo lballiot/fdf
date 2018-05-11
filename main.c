@@ -63,7 +63,7 @@ t_file		ft_do_tab(int ac, char *av, t_file data)
 	return (data);
 }
 
-char		*ft_title(char *str)
+static char		*ft_title(char *str)
 {
 	char	*cpy;
 	int		i;
@@ -97,7 +97,7 @@ t_file		init_struct(char *av)
 	data.tab = NULL;
 	data.len = 0;
 	data.height = 0;
-	data.zoom = 20;
+	data.zoom = 100;
 	return (data);
 }
 
@@ -110,6 +110,7 @@ int			main(int ac, char **av)
 	data = init_struct(av[1]);
 	data = ft_do_tab(ac, av[1], data);
 	coord = ft_coord(data, coord);
+	ft_memdel((void *)data.tab);
 //  print the maps after modification for the zoom and the placement of the maps
 	ft_modification(&data, coord);
 	while (coord->next != NULL)
@@ -117,6 +118,7 @@ int			main(int ac, char **av)
 		ft_bresen(data, coord);
 		coord = coord->next;
 	}
+	ft_bresen(data, coord);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }

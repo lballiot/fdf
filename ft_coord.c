@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/04 16:06:43 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/11 10:57:38 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,92 +14,62 @@
 
 t_coord		*ft_add_coord(t_coord *coord, int t[9], t_file data)
 {
-	t_coord *elem;
+	t_coord *e;
 	int center;
     static t_coord *tmp; //free tmp but when ????????
 
-    if (!(elem=(t_coord *)malloc(sizeof(t_coord))))
+    if (!(e=(t_coord *)malloc(sizeof(t_coord))))
         return (NULL);
 	center = data.zoom / 2;
-	elem->point[0] = (t[0] + center) * data.zoom; 
-	elem->point[1] = (t[1] + (center - 5)) * data.zoom;
-	elem->point[2] = t[2];
-	elem->right[0] = (t[3] + center) * data.zoom; 
-	elem->right[1] = (t[4] + (center - 5)) * data.zoom;			//GOOD ELEM
-	elem->right[2] = t[5];
-	elem->down[0] = (t[6] + center) * data.zoom; 
-	elem->down[1] = (t[7] + (center - 5)) * data.zoom;
-	elem->down[2] = t[8];
-	elem->next = NULL;
+	e->point[0] = (t[0] + center) * data.zoom; 
+	e->point[1] = (t[1] + center) * data.zoom; //* 150;
+	e->point[2] = t[2] * 50;
+	e->right[0] = (t[3] + center) * data.zoom; //* 150; 
+	e->right[1] = (t[4] + center) * data.zoom; //* 150;
+	e->right[2] = t[5] * 50;
+	e->down[0] = (t[6] + center) * data.zoom; //* 150; 
+	e->down[1] = (t[7] + center) * data.zoom; //* 150;
+	e->down[2] = t[8] *  50;
+	e->next = NULL;
 
-	ft_putstr("x = ");
-	ft_putnbr(elem->point[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(elem->point[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(elem->point[2]);
-	ft_putstr("\nx = ");
-	ft_putnbr(elem->right[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(elem->right[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(elem->right[2]);
-	ft_putstr("\nx = ");
-	ft_putnbr(elem->down[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(elem->down[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(elem->down[2]);
+/*	ft_putstr("x1 = ");
+	ft_putnbr(e->point[0]);
+	ft_putstr("\ny1 = ");
+	ft_putnbr(e->point[1]);
+	ft_putstr("\nz1 = ");
+	ft_putnbr(e->point[2]);
+	ft_putstr("\nx2 = ");
+	ft_putnbr(e->right[0]);
+	ft_putstr("\ny2 = ");
+	ft_putnbr(e->right[1]);
+	ft_putstr("\nz2 = ");
+	ft_putnbr(e->right[2]);
+	ft_putstr("\nx3 = ");
+	ft_putnbr(e->down[0]);
+	ft_putstr("\ny3 = ");
+	ft_putnbr(e->down[1]);
+	ft_putstr("\nz3 = ");
+	ft_putnbr(e->down[2]);
 	ft_putstr("\n");
-	ft_putstr("ELELELELELELELELELELE\n");
+	ft_putstr("/////////////////////// END FT_ADD_COORD\n");*/
 
-
-//	elem->point[0] = (elem->point[1] / data.height) + (elem->point[0] / data.len);
-//	elem->point[1] = (elem->point[1] / data.height) - (elem->point[0] / data.len);
-//	elem->right[0] = (elem->right[1] / data.height) + (elem->right[0] / data.len);
-//	elem->right[1] = (elem->right[1] / data.height) - (elem->right[0] / data.len);
-//	elem->down[0] = (elem->down[1] / data.height) + (elem->down[0] / data.len);
-//	elem->down[1] = (elem->down[1] / data.height) - (elem->down[0] / data.len);
-
-	elem->point[1] = (int)((0.6 * (float)elem->point[0] - 0.8 * (float)elem->point[1]) * data.zoom);
-	elem->point[0] = (int)(((float)elem->point[2] + 0.6 / 2 * (float)elem->point[0] - 0.8 / 2 * (float)elem->point[1]) * data.zoom);
-	elem->right[1] = (int)((0.6 * (float)elem->right[0] - 0.8 * (float)elem->right[1]) * data.zoom);
-	elem->right[0] = (int)(((float)elem->right[2] + 0.6 / 2 * (float)elem->right[0] - 0.8 / 2 * (float)elem->right[1]) * data.zoom);
-	elem->down[1] = (int)((0.6 * (float)elem->down[0] - 0.8 * (float)elem->down[1]) * data.zoom);
-	elem->down[0] = (int)(((float)elem->down[2] + 0.6 / 2 * (float)elem->down[0] - 0.8 / 2 * (float)elem->down[1]) * data.zoom);
-
-
+	e->point[0] = (float)(((0.07 * (float)e->point[0] - 0.07 * (float)e->point[1])) * 3 + 200 );
+	e->point[1] = (float)(((0.04 * (float)e->point[0] + 0.04 * (float)e->point[1]) - 0.2 * (float)e->point[2]) * 3 + 200 );
+	e->right[0] = (float)(((0.07 * (float)e->right[0] - 0.07 * (float)e->right[1])) * 3 + 200 );
+	e->right[1] = (float)(((0.04 * (float)e->right[0] + 0.04 * (float)e->right[1]) - 0.2 * (float)e->right[2]) * 3 + 200 );
+	e->down[0] = (float)(((0.07 * (float)e->down[0] - 0.07 * (float)e->down[1])) * 3 + 200 );
+	e->down[1] = (float)(((0.04 * (float)e->down[0] + 0.04 * (float)e->down[1]) - 0.2 * (float)e->down[2]) * 3 + 200 );
 	if (coord == NULL)
 	{
-		coord = elem;
+		coord = e;
 		tmp = coord;
 	}
 	else
     {
         while (coord->next != NULL)
             coord = coord->next;
-		coord->next = elem;
+		coord->next = e;
 	}
-	ft_putstr("x = ");
-	ft_putnbr(coord->point[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->point[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->point[2]);
-	ft_putstr("\nx = ");
-	ft_putnbr(coord->right[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->right[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->right[2]);
-	ft_putstr("\nx = ");
-	ft_putnbr(coord->down[0]);
-	ft_putstr("\ny = ");
-	ft_putnbr(coord->down[1]);
-	ft_putstr("\nz = ");
-	ft_putnbr(coord->down[2]);
-	ft_putstr("\n");
-	ft_putstr("endendnednedend\n");
 	coord = tmp;
 	return (coord);
 }
@@ -107,62 +77,63 @@ t_coord		*ft_add_coord(t_coord *coord, int t[9], t_file data)
 t_coord		*ft_coord(t_file data, t_coord *coord)
 {
 	int t[9];
-	int i = -1;
-	int j = 0;
+	int y = -1;
+	int x = 0;
 	char **tab_split = NULL;
 	char **tab_down = NULL;
 	
-	while(i < 9)
-		t[++i] = 0;
-	i = 0;
-	while(data.tab[i] != NULL)
+	while(y < 9)
+		t[++y] = 0;
+	y = 0;
+	while(data.tab[y] != NULL)
 	{
-		tab_split = ft_strsplit(data.tab[i], ' ');
-		if (data.tab[i + 1] != NULL)
-			tab_down = ft_strsplit(data.tab[i + 1], ' ');
-		while(tab_split[j] != NULL)
+		printf("tab =%s=\ni (y) = %d\n", data.tab[y], y);
+		tab_split = ft_strsplit(data.tab[y], ' ');
+		if (data.tab[y + 1] != NULL)
+			tab_down = ft_strsplit(data.tab[y + 1], ' ');
+		while(tab_split[x] != NULL)
 		{
-			t[0] = i; // x
-			t[1] = j; // y
-			t[2] = ft_atoi(tab_split[j]); // z
-			if (tab_split[j + 1] != NULL)
+			t[0] = x; // x
+			t[1] = y; // y
+			t[2] = ft_atoi(tab_split[x]); // z
+			if (tab_split[x + 1] != NULL)
 			{
-				t[3] = i; // x_right
-				t[4] = j + 1 ; // y_right
-				t[5] = ft_atoi(tab_split[j + 1]); //z_right
+				t[3] = x + 1; // x_right
+				t[4] = y ; // y_right
+				t[5] = ft_atoi(tab_split[x + 1]); //z_right
 			}
 // find the coord of down
-			if (tab_down[j] != NULL)
+			if (tab_down[x] != NULL)
 			{
-				t[6] = i + 1;//x_down
-				t[7] = j;//y_down
-				t[8] = ft_atoi(tab_down[j]);//z_down
+				t[6] = x;//x_down
+				t[7] = y + 1;//y_down
+				t[8] = ft_atoi(tab_down[x]);//z_down
 			}
 			else //if tab_down doesnt exist t[6] = -1 so error 
 			{
-				t[6] = i;//x_down
-				t[7] = j;//y_down
-				t[8] = ft_atoi(tab_split[j]);//z_down
-				tab_down[j + 1] = NULL;
+				t[6] = x;//x_down
+				t[7] = y;//y_down
+				t[8] = ft_atoi(tab_split[x]);//z_down
+				tab_down[x + 1] = NULL;
 			}
 //			*t = ft_fill_t(i, j, t, tab_split);
-			int k = 0;
+/*			int k = 0;
 			while (k < 9)
 			{
 				ft_putstr("tab[");
 				ft_putnbr(k);
 				ft_putstr("] = ");
 				ft_putnbr(t[k]);
-				ft_putstr("\n");
+				ft_putstr("\n\n");
 				k++;
-			}
+				}*/
 			coord = ft_add_coord(coord, t, data); 
-			j++;
+			x++;
 		}
 		ft_memdel((void *)tab_down);
 		free(tab_split);
-		j = 0;
-		i++;
+		x = 0;
+		y++;
 	}
 	return (coord);
 }

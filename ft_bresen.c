@@ -29,7 +29,9 @@ void	init_bresen(t_bresen *s, t_coord *coord)
 void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 {
 	t_bresen s;
+	int color;
 
+	color = 0xFFFFFFF;
 	s.x = xi;
 	s.y = yi;
 	s.dx = xf - xi;
@@ -41,7 +43,7 @@ void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 	s.cumul = 0;
 	s.i = 0;
 //	init_bresen(&s, coord);
-	mlx_pixel_put(data.mlx_ptr, data.window, (s.y), (s.x), 0xFFFFFFF);
+	mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), color);
 	if (s.dx > s.dy) //vertical rouge
 	{
 		s.cumul = s.dx / 2;
@@ -49,13 +51,17 @@ void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 		while (++s.i <= s.dx)
 		{
 			s.x += s.xinc;
-			s.cumul -= s.dx;
+			s.cumul += s.dy;
 			if (s.cumul >= s.dx)
 			{
 				s.cumul -= s.dx;
 				s.y += s.yinc;
 			}
-			mlx_pixel_put(data.mlx_ptr, data.window, (s.y), (s.x), 0xFFFFFF);
+
+			color += 5000;
+			
+			mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), color);
+			
 		}
 	}
 	else //horizontal blanc
@@ -71,16 +77,45 @@ void	ft_test(int xi,int yi,int xf,int yf, t_file data)
 				s.cumul -= s.dy;
 				s.x += s.xinc;
 			}
-			mlx_pixel_put(data.mlx_ptr, data.window, (s.y), (s.x), 0xFFFFFF);
+			color -= 5000;
+			mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), color);
 		}
-	}
+		}
 }
 
 void	ft_bresen(t_file data, t_coord *coord)
 {
 	(void)data;
 	(void)coord;
-	ft_test(coord->point[0], coord->point[1], coord->right[0], coord->right[1], data);
-	ft_test(coord->point[0], coord->point[1], coord->down[0], coord->down[1], data);
+	t_coord *tmp;
+
+	tmp = coord;
+	if (coord->next)
+	{
+		tmp = coord->next;
+		ft_test(coord->point[0], coord->point[1], coord->right[0], coord->right[1], data);
+//		printf("right xi = %d\nyi = %d\nxf = %d\nyf = %d\n\n", coord->point[0], coord->point[1], coord->right[0], coord->right[1]);
+		
+		ft_test(coord->point[0], coord->point[1], coord->down[0], coord->down[1], data);
+//		printf("down xi = %d\nyi = %d\nxf = %d\nyf = %d\n\n", coord->point[0], coord->point[1], coord->down[0], coord->down[1]);
+	}
 //	init_bresen(&s, coord);
 }
+
+
+
+/*
+
+//ft_test(coord->point[0], coord->point[1], coord->right[0], coord->right[1], data);
+void	ft_test(int xi,int yi,int xf,int yf, t_file data)
+{
+	t_bresen s;
+	int color;
+
+	color = 0xFFFFFFF;
+	s.x = coord->point[0];
+	s.y = coord->point[1];
+	s.dx = coord->right[0] - coord->point[0];
+	s.dy = coord->right[1] - coord->point[1];
+
+*/

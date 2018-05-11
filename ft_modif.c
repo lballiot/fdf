@@ -38,8 +38,8 @@ void	ft_modification(t_file *data, t_coord *coord)
 	int err;
 
 	err = 0;
-	width = ((data->zoom + 1) * (data->len + 20));
-	height = ((data->zoom + 1) * (data->height + 20));
+	width = ((data->zoom + 1) * (data->len + 20) * 2 );
+	height = ((data->zoom + 1) * (data->height + 20) *2);
 	if (((data->zoom + 1) * data->height) > 1300 || ((data->zoom + 1) * data->len) > 2500)
 	{
 		height = 1300;
