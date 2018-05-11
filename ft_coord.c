@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/11 10:57:38 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/11 12:22:04 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ t_coord		*ft_add_coord(t_coord *coord, int t[9], t_file data)
     if (!(e=(t_coord *)malloc(sizeof(t_coord))))
         return (NULL);
 	center = data.zoom / 2;
-	e->point[0] = (t[0] + center) * data.zoom; 
-	e->point[1] = (t[1] + center) * data.zoom; //* 150;
+	e->point[0] = t[0] * data.zoom; 
+	e->point[1] = t[1] * data.zoom; //* 150;
 	e->point[2] = t[2] * 50;
-	e->right[0] = (t[3] + center) * data.zoom; //* 150; 
-	e->right[1] = (t[4] + center) * data.zoom; //* 150;
+	e->right[0] = t[3] * data.zoom; //* 150; 
+	e->right[1] = t[4] * data.zoom; //* 150;
 	e->right[2] = t[5] * 50;
-	e->down[0] = (t[6] + center) * data.zoom; //* 150; 
-	e->down[1] = (t[7] + center) * data.zoom; //* 150;
+	e->down[0] = t[6] * data.zoom; //* 150; 
+	e->down[1] = t[7] * data.zoom; //* 150;
 	e->down[2] = t[8] *  50;
 	e->next = NULL;
 
@@ -87,7 +87,6 @@ t_coord		*ft_coord(t_file data, t_coord *coord)
 	y = 0;
 	while(data.tab[y] != NULL)
 	{
-		printf("tab =%s=\ni (y) = %d\n", data.tab[y], y);
 		tab_split = ft_strsplit(data.tab[y], ' ');
 		if (data.tab[y + 1] != NULL)
 			tab_down = ft_strsplit(data.tab[y + 1], ' ');
