@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/11 14:09:19 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/14 13:08:31 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,10 +120,14 @@ int			main(int ac, char **av)
 
 	coord = NULL;
 	data = ft_do_tab(ac, av[1]);
-	coord = ft_coord(data, coord);
-	ft_memdel((void *)data.tab);
+	data.space = 0;
+	printf("main data.space = %d\n", data.space);
+	coord = ft_coord(&data, coord);
 //  print the maps after modification for the zoom and the placement of the maps
+	printf("\nMAIN\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n\n", data.min_x, data.min_y, data.max_x, data.max_y);
 	ft_modification(&data, coord);
+	ft_memdel((void *)data.tab);
+	printf("ENDENDENDEND NEXT BRESSEN\n");
 	while (coord->next != NULL)
 	{
 		ft_bresen(data, coord);

@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/11 13:49:57 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/14 13:16:31 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ typedef struct		s_file
 	int min_y;
 	int max_x;
 	int max_y;
+	int width_win;
+	int height_win;
+	int space; 
 }					t_file;
 
 typedef	struct		s_bresen
@@ -66,7 +69,7 @@ void	ft_check_char(char *map);
 
 char	*ft_add_back_n(char *line);
 
-t_coord	*ft_coord(t_file data, t_coord *coord);
+t_coord	*ft_coord(t_file *data, t_coord *coord);
 
 void	ft_modification(t_file *data, t_coord *coord);
 
