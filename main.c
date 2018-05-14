@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/14 13:08:31 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/14 15:26:40 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ t_file		init_struct(char *av)
 	data.min_y = 0;
 	data.max_x = 0;
 	data.max_y = 0;
+	data.space_x = 0;
+	data.space_y = 0;
 	data.tmp = NULL;
     while(i < 9)
 		data.t[++i] = 0;
@@ -120,8 +122,6 @@ int			main(int ac, char **av)
 
 	coord = NULL;
 	data = ft_do_tab(ac, av[1]);
-	data.space = 0;
-	printf("main data.space = %d\n", data.space);
 	coord = ft_coord(&data, coord);
 //  print the maps after modification for the zoom and the placement of the maps
 	printf("\nMAIN\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n\n", data.min_x, data.min_y, data.max_x, data.max_y);
