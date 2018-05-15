@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/14 15:26:40 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/15 16:48:03 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_file		init_struct(char *av)
 	data.min_y = 0;
 	data.max_x = 0;
 	data.max_y = 0;
-	data.space_x = 0;
+	data.space_x = 5;
 	data.space_y = 0;
 	data.tmp = NULL;
     while(i < 9)
@@ -122,11 +122,35 @@ int			main(int ac, char **av)
 
 	coord = NULL;
 	data = ft_do_tab(ac, av[1]);
+//	ft_putstr("avant ft_coord\n");
 	coord = ft_coord(&data, coord);
 //  print the maps after modification for the zoom and the placement of the maps
 	printf("\nMAIN\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n\n", data.min_x, data.min_y, data.max_x, data.max_y);
-	ft_modification(&data, coord);
+//	ft_putstr("avant ft_modification\n");
+	coord = ft_modification(&data, coord);
 	ft_memdel((void *)data.tab);
+	ft_putstr("ENDENDENDEND NEXT BRESSEN\n");
+    ft_putstr("x = ");
+    ft_putnbr(coord->point[0]);
+    ft_putstr("\ny = ");
+    ft_putnbr(coord->point[1]);
+    ft_putstr("\nz = ");
+    ft_putnbr(coord->point[2]);
+    ft_putstr("\nx = ");
+    ft_putnbr(coord->right[0]);
+    ft_putstr("\ny = ");
+    ft_putnbr(coord->right[1]);
+    ft_putstr("\nz = ");
+    ft_putnbr(coord->right[2]);
+    ft_putstr("\nx = ");
+    ft_putnbr(coord->down[0]);
+    ft_putstr("\ny = ");
+    ft_putnbr(coord->down[1]);
+    ft_putstr("\nz = ");
+    ft_putnbr(coord->down[2]);
+    ft_putstr("\n");
+    ft_putstr("endendnednedend\n");
+	printf("MAIN BEFORE BRESEN\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\ndata.width_win = %d\tdata.height_win = %d\ndata.zoom = %d\ndata.space_x = %d\tdata.space_y = %d\n", data.min_x, data.min_y, data.max_x, data.max_y, data.width_win, data.height_win, data.zoom, data.space_x, data.space_y);
 	printf("ENDENDENDEND NEXT BRESSEN\n");
 	while (coord->next != NULL)
 	{

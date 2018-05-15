@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/14 15:32:53 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/15 16:44:44 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_file		ft_min_max(t_coord *coord, t_file *data)
 		coord = coord->next;
 	}
 	coord = data->tmp;
-	printf("\nFT min_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n", data->min_x, data->min_y, data->max_x, data->max_y);
+	printf("\nFT_MIN_MAX\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n", data->min_x, data->min_y, data->max_x, data->max_y);
 	return (*data);
 }
 
@@ -42,17 +42,18 @@ t_coord		*ft_add_coord(t_coord *coord, t_file data)
 	t_coord *e;
     static t_coord *tmp; //free tmp but when ????????
 
+//	ft_putstr("debut ft_add_coord\n");
     if (!(e=(t_coord *)malloc(sizeof(t_coord))))
         return (NULL);
 	e->point[0] = data.t[0] * data.zoom + data.space_y; 
 	e->point[1] = (data.t[1]) * data.zoom + data.space_y ; //* 150;
-	e->point[2] = data.t[2] * 50;
+	e->point[2] = data.t[2] * 40;
 	e->right[0] = (data.t[3])* data.zoom + data.space_y; //* 150; 
 	e->right[1] = (data.t[4]) * data.zoom + data.space_y; //* 150;
-	e->right[2] = data.t[5] * 50;
+	e->right[2] = data.t[5] * 40;
 	e->down[0] = (data.t[6]) * data.zoom + data.space_y; //* 150; 
 	e->down[1] = (data.t[7]) * data.zoom + data.space_y; //* 150;
-	e->down[2] = data.t[8] *  50;
+	e->down[2] = data.t[8] *  40;
 	e->next = NULL;
 
 
@@ -78,6 +79,7 @@ t_coord		*ft_add_coord(t_coord *coord, t_file data)
 		coord->next = e;
 	}
 	coord = tmp;
+//	ft_putstr("fin ft_add_coord\n");
 	return (coord);
 }
 
@@ -88,9 +90,10 @@ t_coord		*ft_coord(t_file *data, t_coord *coord)
 	char **tab_split = NULL;
 	char **tab_down = NULL;
 	
-	//printf("passage\n");
-	//printf("\nFT_COORD\n\ndata.space_x = %d\tdata.space_y = %d\ndata.zoom = %d\n", data->space_x, data->space_y, data->zoom);
+	printf("passage\n");
+	printf("\nFT_COORD\ndata.space_x = %d\tdata.space_y = %d\ndata.zoom = %d\n", data->space_x, data->space_y, data->zoom);
 	y = 0;
+//	ft_putstr("ft_coord debut\n");
 	while(data->tab[y] != NULL)
 	{
 		tab_split = ft_strsplit(data->tab[y], ' ');
@@ -122,7 +125,6 @@ t_coord		*ft_coord(t_file *data, t_coord *coord)
 				tab_down[x + 1] = NULL;
 			}
 			coord = ft_add_coord(coord, *data); 
-//			//printf("\nCOORD data.space = %d\n", data->space);
 			x++;
 		}
 		ft_memdel((void *)tab_down);
@@ -131,13 +133,8 @@ t_coord		*ft_coord(t_file *data, t_coord *coord)
 		y++;
 	}
 	*data = ft_min_max(coord, data);
-/*	if (data->max_x > 2560 || data->max_y > 1390)
-	{
-		ft_putstr("toto\n");
-		data->zoom--;
-		return (ft_coord(data, coord));
-		}*/
-	//printf("coord\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n", data->min_x, data->min_y, data->max_x, data->max_y);
+printf("FT_COORD\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n", data->min_x, data->min_y, data->max_x, data->max_y);
+//	ft_putstr("fin ft_coord\n");
 	return (coord);
 }
 
