@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/15 16:48:03 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/16 10:57:26 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_file		init_struct(char *av)
 	data.space_x = 5;
 	data.space_y = 0;
 	data.tmp = NULL;
+	data.evelation = 40;
     while(i < 9)
 		data.t[++i] = 0;
 	return (data);
@@ -128,9 +129,10 @@ int			main(int ac, char **av)
 	printf("\nMAIN\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n\n", data.min_x, data.min_y, data.max_x, data.max_y);
 //	ft_putstr("avant ft_modification\n");
 	coord = ft_modification(&data, coord);
+	printf("x1 = %d \ty1 = %d \tz1 = %d\nx2 = %d \ty2 = %d \tz2 = %d \nx3 = %d \ty3 = %d \tz3 = %d\n\n", coord->point[0], coord->point[1], coord->point[2], coord->right[0], coord->right[1], coord->right[2], coord->down[0], coord->down[1], coord->down[2]);
 	ft_memdel((void *)data.tab);
 	ft_putstr("ENDENDENDEND NEXT BRESSEN\n");
-    ft_putstr("x = ");
+/*    ft_putstr("x = ");
     ft_putnbr(coord->point[0]);
     ft_putstr("\ny = ");
     ft_putnbr(coord->point[1]);
@@ -149,15 +151,18 @@ int			main(int ac, char **av)
     ft_putstr("\nz = ");
     ft_putnbr(coord->down[2]);
     ft_putstr("\n");
-    ft_putstr("endendnednedend\n");
-	printf("MAIN BEFORE BRESEN\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\ndata.width_win = %d\tdata.height_win = %d\ndata.zoom = %d\ndata.space_x = %d\tdata.space_y = %d\n", data.min_x, data.min_y, data.max_x, data.max_y, data.width_win, data.height_win, data.zoom, data.space_x, data.space_y);
-	printf("ENDENDENDEND NEXT BRESSEN\n");
+	ft_putstr("endendnednedend\n");
+*/
+	if (coord->next != NULL)
+		printf("\nCOORD EXIST\n");
+	printf("MAIN BEFORE BRESEN\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\ndata.width_win = %d\tdata.height_win = %d\ndata.zoom = %d\ndata.space_x = %d\tdata.space_y = %d\ndata.evelation = %d\n", data.min_x, data.min_y, data.max_x, data.max_y, data.width_win, data.height_win, data.zoom, data.space_x, data.space_y, data.evelation);
+	
 	while (coord->next != NULL)
 	{
 		ft_bresen(data, coord);
 		coord = coord->next;
 	}
-	ft_bresen(data, coord);
+//	ft_bresen(data, coord);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }

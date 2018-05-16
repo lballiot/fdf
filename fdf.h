@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/15 15:26:40 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/16 10:37:52 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct		s_file
 	int height_win;
 	int space_x;
 	int space_y;
+	int evelation;
 }					t_file;
 
 typedef	struct		s_bresen

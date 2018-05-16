@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 14:59:33 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/15 18:16:37 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/16 11:20:33 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,43 @@ int deal_key(int key, void **param)
 t_coord	*ft_modification(t_file *data, t_coord *coord)
 {
 	printf("\nMODIF\n");
-	data->width_win = (data->zoom + 1) * data->len;
-	data->height_win = (data->zoom + 1) * data->height;
+	printf("data->zoom = %d\n", data->zoom);
+	data->width_win = (100 + 10) * data->len;//(data->zoom + 10) * data->len;
+	data->height_win = (100 + 10) * data->height;//(data->zoom + 10) * data->height;
 	if (data->height_win > 1300)
 		data->height_win = 1395;
 	if (data->width_win > 2500)
 		data->width_win = 2560;
 	if (data->max_x > data->width_win || data->max_y > data->height_win)
 	{
-//		data->space_x -= 5;
-//		if (data->min_y < 0)
-			
 		ft_putstr("diminution data.zoom\n");
-		data->zoom -= 50;
-//		if (data->space_x > 1000)
-//			data->zoom = 50;
-		coord = ft_coord(data, coord);
+		data->zoom -= 10;
+//		return (ft_coord(data, coord));
 	}
+
+// WHILE THE MAPS HAVN'T THE GOOD ZOOM DATA.SPACE_X AND Y DON'T MOVE 
+
 	if (data->min_x < 0)
 	{
-		data->space_x += -data->min_x;
+//		data->space_x += -data->min_x;
 		printf("\nCONDITION\ndata.space_x = %d\n", data->space_x);
 	}
 	if (data->min_y < 0)
 	{
-		data->space_y = -data->min_y + data->height_win;
+//		data->space_y = -data->min_y + data->height_win + 100;
+
+
+
+//		data->evelation -= 10;
+		// EVELATION MUST BE DECREASE WHEN IT'S TOO BIG ?
+
 		printf("\nCONDITION\ndata.space_y = %d\n", data->space_y);
 	}
 	//printf("min_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n", data->min_x, data->min_y, data->max_x, data->max_y);
 	if (data->min_x < 0 || data->min_y < 0 || data->max_x > data->width_win || data->max_y > data->height_win)
 	{
 		ft_putstr("coord=ft_coord\n\n");
+		free(coord);
 		coord = NULL;
 		coord = ft_coord(data, coord);
 //		return (coord = ft_coord(data, coord));

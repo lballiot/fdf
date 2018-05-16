@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/15 16:44:44 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/16 10:37:29 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ t_coord		*ft_add_coord(t_coord *coord, t_file data)
         return (NULL);
 	e->point[0] = data.t[0] * data.zoom + data.space_y; 
 	e->point[1] = (data.t[1]) * data.zoom + data.space_y ; //* 150;
-	e->point[2] = data.t[2] * 40;
+	e->point[2] = data.t[2] * data.evelation;
 	e->right[0] = (data.t[3])* data.zoom + data.space_y; //* 150; 
 	e->right[1] = (data.t[4]) * data.zoom + data.space_y; //* 150;
-	e->right[2] = data.t[5] * 40;
+	e->right[2] = data.t[5] * data.evelation;;
 	e->down[0] = (data.t[6]) * data.zoom + data.space_y; //* 150; 
 	e->down[1] = (data.t[7]) * data.zoom + data.space_y; //* 150;
-	e->down[2] = data.t[8] *  40;
+	e->down[2] = data.t[8] *  data.evelation;;
 	e->next = NULL;
 
 
