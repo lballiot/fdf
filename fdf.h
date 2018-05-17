@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 14:31:03 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 14:47:47 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ t_coord				*ft_modification(t_file *data, t_coord *coord);
 
 t_file				ft_check_map(char *map, t_file data);
 
-void				ft_bresen(t_file data, t_coord *coord);
+void				ft_bresen(t_file data, t_coord *coord, int i);
 
 t_file				ft_min_max(t_coord *coord, t_file *data);
 

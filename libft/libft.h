@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 10:55:33 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/03 15:21:30 by karakhirn        ###   ########.fr       */
+/*   Updated: 2018/05/17 14:36:50 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@
 # define C '\n'
 # define CH "\n"
 
-typedef	struct		s_struct
+typedef	struct	s_struct
 {
 	char			*str;
 	int				i;
 	int				fd;
 	struct s_struct	*next;
-}					t_struct;
+}				t_struct;
 
 typedef struct	s_list
 {

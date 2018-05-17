@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 14:26:42 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 14:49:22 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ t_file			init_struct(char *av)
 	data.min_y = 0;
 	data.max_x = 0;
 	data.max_y = 0;
-	data.error_evelation = 0;
+	data.i = 0;
 	data.space_x = 5;
 	data.space_y = 5;
 	data.tmp = NULL;
@@ -128,10 +128,13 @@ int				main(int ac, char **av)
 	ft_memdel((void *)data.tab);
 	while (coord->next != NULL)
 	{
-		ft_bresen(data, coord);
+		if (coord->next)
+		{
+			ft_bresen(data, coord, 1);
+			ft_bresen(data, coord, 0);
+		}
 		coord = coord->next;
 	}
-	ft_bresen(data, coord);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
