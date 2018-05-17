@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 14:59:33 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/16 11:20:33 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 12:36:46 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ int deal_key(int key, void **param)
 
 t_coord	*ft_modification(t_file *data, t_coord *coord)
 {
-	printf("\nMODIF\n");
-	printf("data->zoom = %d\n", data->zoom);
+//	printf("\nMODIF\n");
+//	printf("data->zoom = %d\n", data->zoom);
 	data->width_win = (100 + 10) * data->len;//(data->zoom + 10) * data->len;
 	data->height_win = (100 + 10) * data->height;//(data->zoom + 10) * data->height;
 	if (data->height_win > 1300)
@@ -71,14 +71,12 @@ t_coord	*ft_modification(t_file *data, t_coord *coord)
 	{
 		if ((data->max_x > data->width_win || data->max_y > data->height_win) && data->zoom > 10)
 		{
-			ft_putstr("diminution data.zoom\n");
 			data->zoom -= 10;
 			coord = NULL;
 			return (ft_modification(data,ft_coord(data, coord)));
 		}
 		if ((data->max_x > data->width_win || data->max_y > data->height_win) && data->zoom > 5)
 		{
-			ft_putstr("diminution data.zoom\n");
 			data->zoom--;
 			coord = NULL;
 			return (ft_modification(data,ft_coord(data, coord)));
@@ -99,7 +97,7 @@ t_coord	*ft_modification(t_file *data, t_coord *coord)
 	//printf("min_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n", data->min_x, data->min_y, data->max_x, data->max_y);
 
 
-	printf("data->zoom = %d\nEND MODIF\n", data->zoom);
+//	printf("data->zoom = %d\nEND MODIF\n", data->zoom);
 
 
 

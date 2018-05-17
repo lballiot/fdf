@@ -6,13 +6,13 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 13:55:42 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/15 18:10:42 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 12:36:03 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	init_bresen_down(t_bresen *s, t_coord *coord)
+static void		init_bresen_down(t_bresen *s, t_coord *coord)
 {
     s->x = coord->point[0];
     s->y = coord->point[1];
@@ -26,7 +26,7 @@ void	init_bresen_down(t_bresen *s, t_coord *coord)
     s->i = 0;
 }
 
-void    init_bresen(t_bresen *s, t_coord *coord)
+static void		init_bresen(t_bresen *s, t_coord *coord)
 {
     s->x = coord->point[0];
     s->y = coord->point[1];
@@ -53,7 +53,7 @@ void    ft_test(t_coord *coord, t_file data, int i)
 		init_bresen_down(&s, coord);
     mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), color);
 
-	printf("x = %d\t y = %d\t z = %d\nx2 = %d\t x2 = %d\t z2 = %d\nx3 = %d\t y3 = %d\t z3 = %d\n\n", coord->point[0], coord->point[1], coord->point[2], coord->right[0], coord->right[1], coord->right[2], coord->down[0], coord->down[1], coord->down[2]);
+//	printf("x = %d\t y = %d\t z = %d\nx2 = %d\t x2 = %d\t z2 = %d\nx3 = %d\t y3 = %d\t z3 = %d\n\n", coord->point[0], coord->point[1], coord->point[2], coord->right[0], coord->right[1], coord->right[2], coord->down[0], coord->down[1], coord->down[2]);
 	
     if (s.dx > s.dy) //vertical rouge
     {

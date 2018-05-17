@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/16 10:37:29 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 12:50:59 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,52 +20,54 @@ t_file		ft_min_max(t_coord *coord, t_file *data)
 	data->max_y = coord->point[1];
 	while (coord->next != NULL)
 	{
-//		if (data->space > 0)
-//			printf("x1 = %d\ty1 = %d\tz1 = %d\nx2 = %d\ty2 = %d\tz2 = %d\nx3 = %d\ty3 = %d\tz3 = %d\n\n", coord->point[0], coord->point[1], coord->point[2], coord->right[0], coord->right[1], coord->right[2], coord->down[0], coord->down[1], coord->down[2]);
-		if (coord->point[0] < data->min_x)//x
+		if (coord->point[0] < data->min_x)
 			data->min_x = coord->point[0];
-		if (coord->point[0] > data->max_x)//x
+		if (coord->point[0] > data->max_x)
 			data->max_x = coord->point[0];
-		if (coord->point[1] < data->min_y)//y
+		if (coord->point[1] < data->min_y)
 			data->min_y = coord->point[1];
-		if (coord->point[1] > data->max_y)//y
+		if (coord->point[1] > data->max_y)
 			data->max_y = coord->point[1];
 		coord = coord->next;
 	}
 	coord = data->tmp;
-	printf("\nFT_MIN_MAX\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n", data->min_x, data->min_y, data->max_x, data->max_y);
 	return (*data);
+}
+
+void	isometrie(t_coord **e)
+{
+	(*e)->point[0] = (float)(((0.07 * (float)(*e)->point[0] - 0.07 * (float)(*e)->point[1])) * 3 + 200 );
+	(*e)->point[1] = (float)(((0.04 * (float)(*e)->point[0] + 0.04 * (float)(*e)->point[1]) - 0.2 * (float)(*e)->point[2]) * 3 + 200 );
+	(*e)->right[0] = (float)(((0.07 * (float)(*e)->right[0] - 0.07 * (float)(*e)->right[1])) * 3 + 200 );
+	(*e)->right[1] = (float)(((0.04 * (float)(*e)->right[0] + 0.04 * (float)(*e)->right[1]) - 0.2 * (float)(*e)->right[2]) * 3 + 200 );
+	(*e)->down[0] = (float)(((0.07 * (float)(*e)->down[0] - 0.07 * (float)(*e)->down[1])) * 3 + 200 );
+	(*e)->down[1] = (float)(((0.04 * (float)(*e)->down[0] + 0.04 * (float)(*e)->down[1]) - 0.2 * (float)(*e)->down[2]) * 3 + 200 );
+}
+
+void		fill_elem(t_coord **e, t_file data)
+{
+	(*e)->point[0] = data.t[0] * data.zoom + data.space_y; 
+	(*e)->point[1] = (data.t[1]) * data.zoom + data.space_y ; //* 150;
+	(*e)->point[2] = data.t[2] * data.evelation;
+	(*e)->right[0] = (data.t[3])* data.zoom + data.space_y; //* 150; 
+	(*e)->right[1] = (data.t[4]) * data.zoom + data.space_y; //* 150;
+	(*e)->right[2] = data.t[5] * data.evelation;;
+	(*e)->down[0] = (data.t[6]) * data.zoom + data.space_y; //* 150; 
+	(*e)->down[1] = (data.t[7]) * data.zoom + data.space_y; //* 150;
+	(*e)->down[2] = data.t[8] *  data.evelation;;
+	(*e)->next = NULL;
+
 }
 
 t_coord		*ft_add_coord(t_coord *coord, t_file data)
 {
 	t_coord *e;
-    static t_coord *tmp; //free tmp but when ????????
+	static t_coord *tmp;
 
-//	ft_putstr("debut ft_add_coord\n");
-    if (!(e=(t_coord *)malloc(sizeof(t_coord))))
-        return (NULL);
-	e->point[0] = data.t[0] * data.zoom + data.space_y; 
-	e->point[1] = (data.t[1]) * data.zoom + data.space_y ; //* 150;
-	e->point[2] = data.t[2] * data.evelation;
-	e->right[0] = (data.t[3])* data.zoom + data.space_y; //* 150; 
-	e->right[1] = (data.t[4]) * data.zoom + data.space_y; //* 150;
-	e->right[2] = data.t[5] * data.evelation;;
-	e->down[0] = (data.t[6]) * data.zoom + data.space_y; //* 150; 
-	e->down[1] = (data.t[7]) * data.zoom + data.space_y; //* 150;
-	e->down[2] = data.t[8] *  data.evelation;;
-	e->next = NULL;
-
-
-	e->point[0] = (float)(((0.07 * (float)e->point[0] - 0.07 * (float)e->point[1])) * 3 + 200 );
-	e->point[1] = (float)(((0.04 * (float)e->point[0] + 0.04 * (float)e->point[1]) - 0.2 * (float)e->point[2]) * 3 + 200 );
-	e->right[0] = (float)(((0.07 * (float)e->right[0] - 0.07 * (float)e->right[1])) * 3 + 200 );
-	e->right[1] = (float)(((0.04 * (float)e->right[0] + 0.04 * (float)e->right[1]) - 0.2 * (float)e->right[2]) * 3 + 200 );
-	e->down[0] = (float)(((0.07 * (float)e->down[0] - 0.07 * (float)e->down[1])) * 3 + 200 );
-	e->down[1] = (float)(((0.04 * (float)e->down[0] + 0.04 * (float)e->down[1]) - 0.2 * (float)e->down[2]) * 3 + 200 );
-//	if (data.space_x > 0)
-//		//printf("x1 = %d \ty1 = %d \tz1 = %d\nx2 = %d \ty2 = %d \tz2 = %d \nx3 = %d \ty3 = %d \tz3 = %d\n\n", e->point[0], e->point[1], e->point[2], e->right[0], e->right[1], e->right[2], e->down[0], e->down[1], e->down[2]);
-//	//printf("\nFT_ADD_COORD\n\ndata.space_x = %d\tdata.space_y = %d\ndata.zoom = %d\n", data.space_x, data.space_y, data.zoom);
+	if (!(e=(t_coord *)malloc(sizeof(t_coord))))
+		return (NULL);
+	fill_elem(&e, data);
+	isometrie(&e);
 	if (coord == NULL)
 	{
 		coord = e;
@@ -73,13 +75,12 @@ t_coord		*ft_add_coord(t_coord *coord, t_file data)
 		data.tmp = tmp;
 	}
 	else
-    {
-        while (coord->next != NULL)
-            coord = coord->next;
+	{
+		while (coord->next != NULL)
+			coord = coord->next;
 		coord->next = e;
 	}
 	coord = tmp;
-//	ft_putstr("fin ft_add_coord\n");
 	return (coord);
 }
 
@@ -90,10 +91,7 @@ t_coord		*ft_coord(t_file *data, t_coord *coord)
 	char **tab_split = NULL;
 	char **tab_down = NULL;
 	
-	printf("passage\n");
-	printf("\nFT_COORD\ndata.space_x = %d\tdata.space_y = %d\ndata.zoom = %d\n", data->space_x, data->space_y, data->zoom);
 	y = 0;
-//	ft_putstr("ft_coord debut\n");
 	while(data->tab[y] != NULL)
 	{
 		tab_split = ft_strsplit(data->tab[y], ' ');
@@ -110,14 +108,13 @@ t_coord		*ft_coord(t_file *data, t_coord *coord)
 				data->t[4] = y ; // y_right
 				data->t[5] = ft_atoi(tab_split[x + 1]); //z_right
 			}
-// find the coord of down
 			if (tab_down[x] != NULL)
 			{
 				data->t[6] = x + data->space_x;//x_down
 				data->t[7] = y + 1;//y_down
 				data->t[8] = ft_atoi(tab_down[x]);//z_down
 			}
-			else //if tab_down doesnt exist data->t[6] = -1 so error 
+			else
 			{
 				data->t[6] = x + data->space_x;//x_down
 				data->t[7] = y;//y_down
@@ -133,98 +130,8 @@ t_coord		*ft_coord(t_file *data, t_coord *coord)
 		y++;
 	}
 	*data = ft_min_max(coord, data);
-printf("FT_COORD\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\n", data->min_x, data->min_y, data->max_x, data->max_y);
-//	ft_putstr("fin ft_coord\n");
 	return (coord);
 }
 
 
-/////////////////////////////////////
-//       TO PRINT THE LIST         //
-/////////////////////////////////////
-
-/*
-
-    ft_putstr("down[0] = ");
-    ft_putnbr(coord->down[0]);
-    ft_putstr("\npoindata->t[0] = ");
-    ft_putnbr(coord->poindata->t[0]);
-	ft_putstr("\n");
-
-
-	while (coord->next != NULL)
-	{
-		ft_putstr("x = ");
-		ft_putnbr(coord->poindata->t[0]);
-		ft_putstr("\ny = ");
-		ft_putnbr(coord->poindata->t[1]);
-		ft_putstr("\nz = ");
-		ft_putnbr(coord->poindata->t[2]);
-		ft_putstr("\nx = ");
-		ft_putnbr(coord->righdata->t[0]);
-		ft_putstr("\ny = ");
-		ft_putnbr(coord->righdata->t[1]);
-		ft_putstr("\nz = ");
-		ft_putnbr(coord->righdata->t[2]);
-		ft_putstr("\nx = ");
-		ft_putnbr(coord->down[0]);
-		ft_putstr("\ny = ");
-		ft_putnbr(coord->down[1]);
-		ft_putstr("\nz = ");
-		ft_putnbr(coord->down[2]);
-		ft_putstr("\n");
-		ft_putstr("endendnednedend\n");
-		coord = coord->next;
-	}
-	coord = tmp;
-
-
-	while (coord->next != NULL)
-	{
-		ft_putstr("x = ");
-		ft_putnbr(coord->point[0]);
-		ft_putstr("\ny = ");
-		ft_putnbr(coord->point[1]);
-		ft_putstr("\nz = ");
-		ft_putnbr(coord->point[2]);
-		ft_putstr("\n");
-		coord = coord->next;
-	}
-
-		ft_putstr("x1 = ");
-		ft_putnbr(e->point[0]);
-		ft_putstr("\ny1 = ");
-		ft_putnbr(e->point[1]);
-		ft_putstr("\nz1 = ");
-		ft_putnbr(e->point[2]);
-		ft_putstr("\nx2 = ");
-		ft_putnbr(e->right[0]);
-		ft_putstr("\ny2 = ");
-		ft_putnbr(e->right[1]);
-		ft_putstr("\nz2 = ");
-		ft_putnbr(e->right[2]);
-		ft_putstr("\nx3 = ");
-		ft_putnbr(e->down[0]);
-		ft_putstr("\ny3 = ");
-		ft_putnbr(e->down[1]);
-		ft_putstr("\nz3 = ");
-		ft_putnbr(e->down[2]);
-		ft_putstr("\n");
-		ft_putstr("/////////////////////// END FT_ADD_COORD\n");
-
-//			*t = ft_fill_t(i, j, t, tab_split);
-			int k = 0;
-			while (k < 9)
-			{
-				ft_putstr("tab[");
-				ft_putnbr(k);
-				ft_putstr("] = ");
-				ft_putnbr(data->t[k]);
-				ft_putstr("\n\n");
-				k++;
-				}
-
-
-*/
-
-
+//	printf("\nFT_COORD\ndata.space_x = %d\tdata.space_y = %d\ndata.zoom = %d\n", data->space_x, data->space_y, data->zoom);
