@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 12:24:04 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 14:26:42 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_file			ft_read_check_map(int fd, t_file data)
 	}
 	data = ft_check_map(map, data);
 	data.tab = ft_strsplit(map, '\n');
-	data.tab[data.height] = NULL;
+	data.tab[data.height_map] = NULL;
 	free(map);
 	return (data);
 }
@@ -74,14 +74,14 @@ t_file			init_struct(char *av)
 	data.window = NULL;
 	data.av = ft_strdup(ft_title(av));
 	data.tab = NULL;
-	data.len = 0;
-	data.height = 0;
+	data.len_map = 0;
+	data.height_map = 0;
 	data.zoom = 100;
 	data.min_x = 0;
 	data.min_y = 0;
 	data.max_x = 0;
 	data.max_y = 0;
-	data.i = 0;
+	data.error_evelation = 0;
 	data.space_x = 5;
 	data.space_y = 5;
 	data.tmp = NULL;
@@ -120,7 +120,7 @@ int				main(int ac, char **av)
 {
 	t_file	data;
 	t_coord *coord;
-
+	
 	coord = NULL;
 	data = ft_do_tab(ac, av[1]);
 	coord = ft_coord(&data, coord);

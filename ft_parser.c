@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 14:24:46 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/26 11:53:15 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 14:27:29 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static t_file	ft_check_before_eol(char *map, t_file data)
 		if (((map[i] >= '0' && map[i] <= '9') && (!(map[i - 1] >= '0' &&
 													map[i - 1] <= '9')))
 			|| ((map[i] >= '0' && map[i] <= '9') && i == 0))
-			data.len++;
+			data.len_map++;
 	return (data);
 }
 
@@ -72,8 +72,8 @@ t_file			ft_check_map(char *map, t_file data)
 	{
 		if (map[i] == '\n')
 		{
-			data.height++;
-			if (data.len != len_line)
+			data.height_map++;
+			if (data.len_map != len_line)
 			{
 				ft_putstr_fd("Map invalid : wrong lenght of line\n", 2);
 				exit(EXIT_FAILURE);

@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 12:18:12 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 14:31:03 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ typedef struct		s_file
 	void		*mlx_ptr;
 	void		*window;
 	char		**tab;
-	int			len;
-	int			height;
+	int			len_map;
+	int			height_map;
 	int			zoom;
 	char		*av;
 	t_coord		*tmp;
@@ -78,5 +78,7 @@ t_coord				*ft_modification(t_file *data, t_coord *coord);
 t_file				ft_check_map(char *map, t_file data);
 
 void				ft_bresen(t_file data, t_coord *coord);
+
+t_file				ft_min_max(t_coord *coord, t_file *data);
 
 #endif

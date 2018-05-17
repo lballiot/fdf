@@ -6,13 +6,13 @@
 #    By: lballiot <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/03/30 11:48:51 by lballiot          #+#    #+#              #
-#    Updated: 2018/04/30 15:02:33 by lballiot         ###   ########.fr        #
+#    Updated: 2018/05/17 14:13:55 by lballiot         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
 NAME = fdf
 
-SRC = main.c ft_parser.c ft_coord.c ft_modif.c ft_bresen.c
+SRC = main.c ft_parser.c ft_coord.c ft_modif.c ft_bresen.c min_max.c
 
 OBJ = $(SRC:.c=.o)
 
