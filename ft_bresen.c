@@ -53,11 +53,13 @@ void    ft_test(t_coord *coord, t_file data, int i)
 		init_bresen_down(&s, coord);
     mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), color);
 
+	printf("x = %d\t y = %d\t z = %d\nx2 = %d\t x2 = %d\t z2 = %d\nx3 = %d\t y3 = %d\t z3 = %d\n\n", coord->point[0], coord->point[1], coord->point[2], coord->right[0], coord->right[1], coord->right[2], coord->down[0], coord->down[1], coord->down[2]);
+	
     if (s.dx > s.dy) //vertical rouge
     {
         s.cumul = s.dx / 2;
         s.i = 0;
-      color = color * 500;
+//      color = color * 500;
         while (++s.i <= s.dx)
         {
             s.x += s.xinc;
@@ -79,7 +81,8 @@ void    ft_test(t_coord *coord, t_file data, int i)
         {
 //                      if ( coord->down[2] > 0 ||  coord->right[2] > 0)
 //              color = 0xFE0000;
-				color = 0xFE0000;
+
+//				color = 0xFE0000;
 			s.y += s.yinc;
             s.cumul += s.dx;
             if (s.cumul >= s.dy)
@@ -87,7 +90,7 @@ void    ft_test(t_coord *coord, t_file data, int i)
                 s.cumul -= s.dy;
                 s.x += s.xinc;
             }
-            mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), (color));
+            mlx_pixel_put(data.mlx_ptr, data.window, (s.x), (s.y), (color+=500 ));
         }
     }
 }
