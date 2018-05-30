@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 14:49:22 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/30 12:06:26 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,12 @@ t_file			ft_do_tab(int ac, char *av)
 	int		fd;
 	t_file	data;
 
-	data = init_struct(av);
 	if (ac != 2)
 	{
 		ft_putstr_fd("Usage : ./fdf <filename> [ map ]\n", 2);
 		exit(EXIT_FAILURE);
 	}
+	data = init_struct(av);
 	if ((fd = open(av, O_RDONLY)) < 0)
 	{
 		ft_putstr_fd("Open failed : please use an existing file\n", 2);
@@ -120,24 +120,27 @@ int				main(int ac, char **av)
 {
 	t_file	data;
 	t_coord *coord;
-	
+
 	coord = NULL;
 	data = ft_do_tab(ac, av[1]);
+	if (data.tab[0] == NULL)
+		exit(EXIT_FAILURE);
 	coord = ft_coord(&data, coord);
+	if (coord == NULL)
+		exit(EXIT_FAILURE);
 	coord = ft_modification(&data, coord);
 	ft_memdel((void *)data.tab);
-	while (coord->next != NULL)
-	{
-		if (coord->next)
+	if (coord)
+		while (coord->next != NULL)
 		{
-			ft_bresen(data, coord, 1);
-			ft_bresen(data, coord, 0);
+			if (coord->next)
+			{
+				ft_bresen(data, coord, 1);
+				ft_bresen(data, coord, 0);
+			}
+			coord = coord->next;
 		}
-		coord = coord->next;
-	}
+	free(coord);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
-
-//	printf("x1 = %d \ty1 = %d \tz1 = %d\nx2 = %d \ty2 = %d \tz2 = %d \nx3 = %d \ty3 = %d \tz3 = %d\n\n", coord->point[0], coord->point[1], coord->point[2], coord->right[0], coord->right[1], coord->right[2], coord->down[0], coord->down[1], coord->down[2]);
-//	printf("MAIN BEFORE BRESEN\nmin_x = %d\tmin_y = %d\nmax_x = %d\tmax_y = %d\ndata.width_win = %d\tdata.height_win = %d\ndata.zoom = %d\ndata.space_x = %d\tdata.space_y = %d\ndata.evelation = %d\n", data.min_x, data.min_y, data.max_x, data.max_y, data.width_win, data.height_win, data.zoom, data.space_x, data.space_y, data.evelation);

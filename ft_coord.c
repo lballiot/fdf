@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 14:32:39 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/21 17:24:18 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,3 @@ t_coord		*ft_coord(t_file *data, t_coord *coord)
 	*data = ft_min_max(coord, data);
 	return (coord);
 }
-
-//	printf("\nFT_COORD\ndata.space_x = %d\tdata.space_y = %d\ndata.zoom = %d\n", data->space_x, data->space_y, data->zoom);
