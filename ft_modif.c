@@ -6,11 +6,24 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 14:59:33 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 16:07:04 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/06/14 12:56:42 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void ft_remove(t_coord *lst)
+{
+	t_coord *tmp;
+	while (lst->next)
+	{
+		tmp = lst->next;
+		free(lst);
+		lst = tmp;
+	}
+	free(lst);
+	lst = NULL;
+}
 
 int			deal_key(int key, t_file *data)
 {
@@ -49,8 +62,7 @@ t_coord		*placement(t_file *data, t_coord *coord)
 		else if (data->max_x + 10 < data->width_win)
 			data->space_x += 10;
 	}
-	free(coord);
-	coord = NULL;
+	ft_remove(coord);
 	return (ft_modification(data, ft_coord(data, coord)));
 }
 
@@ -63,15 +75,13 @@ t_coord		*param(t_file *data, t_coord *coord)
 			data->zoom--;
 		if (data->zoom > 10)
 			data->zoom -= 10;
-		free(coord);
-		coord = NULL;
+		ft_remove(coord);
 		return (ft_modification(data, ft_coord(data, coord)));
 	}
 	else if (data->min_y < 0 && data->evelation >= 20)
 	{
 		data->evelation -= 10;
-		free(coord);
-		coord = NULL;
+		ft_remove(coord);
 		return (ft_modification(data, ft_coord(data, coord)));
 	}
 	return (coord);
@@ -92,3 +102,4 @@ t_coord		*ft_modification(t_file *data, t_coord *coord)
 	mlx_key_hook(data->window, deal_key, data);
 	return (coord);
 }
+

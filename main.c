@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/30 12:06:26 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/06/14 15:20:58 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ t_file			ft_read_check_map(int fd, t_file data)
 	while ((ret = get_next_line(fd, &line)) == 1)
 	{
 		line = ft_add_back_n(line);
-		map = ft_strjoin_and_free(map, line);
-		ft_check_char(map);
+//		map = ft_strjoin_and_free(map, line);
+//		ft_check_char(map);
 	}
 	free(line);
-	if (ret == 0 && map[0] == '\0')
+	printf("%s\n", map);
+/*	if (ret == 0 && map[0] == '\0')
 	{
 		ft_putstr_fd("Map invalid : nothing to read\n", 2);
 		exit(EXIT_FAILURE);
@@ -36,31 +37,8 @@ t_file			ft_read_check_map(int fd, t_file data)
 	data = ft_check_map(map, data);
 	data.tab = ft_strsplit(map, '\n');
 	data.tab[data.height_map] = NULL;
-	free(map);
+*/	free(map);
 	return (data);
-}
-
-static char		*ft_title(char *str)
-{
-	char	*cpy;
-	int		i;
-	int		j;
-	int		k;
-
-	i = -1;
-	cpy = ft_strrev(str);
-	while (cpy[++i])
-		if (str[i] == '/')
-		{
-			j = ft_strlen(str) - 1 - i;
-			k = i + 1;
-		}
-	free(cpy);
-	cpy = ft_strnew(j + 1);
-	i = 0;
-	while (j--)
-		cpy[i++] = str[k++];
-	return (cpy);
 }
 
 t_file			init_struct(char *av)
@@ -72,7 +50,7 @@ t_file			init_struct(char *av)
 	if (!(data.mlx_ptr = mlx_init()))
 		exit(EXIT_FAILURE);
 	data.window = NULL;
-	data.av = ft_strdup(ft_title(av));
+	data.av = ft_strdup(av);
 	data.tab = NULL;
 	data.len_map = 0;
 	data.height_map = 0;
@@ -101,18 +79,19 @@ t_file			ft_do_tab(int ac, char *av)
 		ft_putstr_fd("Usage : ./fdf <filename> [ map ]\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	data = init_struct(av);
 	if ((fd = open(av, O_RDONLY)) < 0)
 	{
 		ft_putstr_fd("Open failed : please use an existing file\n", 2);
 		exit(EXIT_FAILURE);
 	}
+	data = init_struct(av);
 	data = ft_read_check_map(fd, data);
-	if (close(fd) == -1)
+/*	if (close(fd) == -1)
 	{
+		free(&data);
 		ft_putstr_fd("Close failed\n", 2);
 		exit(EXIT_FAILURE);
-	}
+		}*/
 	return (data);
 }
 
@@ -123,7 +102,7 @@ int				main(int ac, char **av)
 
 	coord = NULL;
 	data = ft_do_tab(ac, av[1]);
-	if (data.tab[0] == NULL)
+/*	if (data.tab[0] == NULL)
 		exit(EXIT_FAILURE);
 	coord = ft_coord(&data, coord);
 	if (coord == NULL)
@@ -140,7 +119,17 @@ int				main(int ac, char **av)
 			}
 			coord = coord->next;
 		}
+/////////////////////////////
+	t_coord *tmp;
+	while (coord->next)
+	{
+		tmp = coord->next;
+		free(coord);
+		coord = tmp;
+	}
 	free(coord);
+	coord = NULL;
+////////////////////////////*/
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }

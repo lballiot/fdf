@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/22 11:49:21 by lballiot          #+#    #+#             */
-/*   Updated: 2018/04/03 15:22:05 by karakhirn        ###   ########.fr       */
+/*   Updated: 2018/06/14 15:16:09 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,13 @@ char	*ft_strjoin_and_free(char *s1, char *s2)
 	dest = NULL;
 	if (s1 && s2)
 	{
-		dest = ft_memalloc(ft_strlen(s1) + ft_strlen(s2) + 1);
-		if (dest)
-		{
-			dest = ft_strcpy(dest, s1);
-			dest = ft_strcat(dest, s2);
-			free(s1);
-			ft_strclr(s2);
-			return (dest);
-		}
+		if (!(dest = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1)))
+			return (NULL);
+		dest = ft_strcpy(dest, s1);
+		dest = ft_strcat(dest, s2);
+		free(s1);
+		ft_strclr(s2);
+		return (dest);
 	}
 	ft_strdel(&dest);
 	return (NULL);
