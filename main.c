@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/06/14 15:20:58 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/06/19 19:11:33 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ t_file			ft_read_check_map(int fd, t_file data)
 	while ((ret = get_next_line(fd, &line)) == 1)
 	{
 		line = ft_add_back_n(line);
-//		map = ft_strjoin_and_free(map, line);
-//		ft_check_char(map);
+		map = ft_strjoin_and_free(map, line);
+		ft_check_char(map);
 	}
 	free(line);
-	printf("%s\n", map);
-/*	if (ret == 0 && map[0] == '\0')
+	printf("%s\n", map);//
+	if (ret == 0 && map[0] == '\0')
 	{
 		ft_putstr_fd("Map invalid : nothing to read\n", 2);
+		free(map); //
 		exit(EXIT_FAILURE);
 	}
-	data = ft_check_map(map, data);
-	data.tab = ft_strsplit(map, '\n');
+//	data = ft_check_map(map, data);
+	data.tab = ft_strsplit(map, '\n'); // 1 leaks
 	data.tab[data.height_map] = NULL;
-*/	free(map);
+	free(map);
 	return (data);
 }
 
@@ -50,7 +51,8 @@ t_file			init_struct(char *av)
 	if (!(data.mlx_ptr = mlx_init()))
 		exit(EXIT_FAILURE);
 	data.window = NULL;
-	data.av = ft_strdup(av);
+	data.av = ft_strdup(av); //leaks 1 see in modification
+	free(data.av);//
 	data.tab = NULL;
 	data.len_map = 0;
 	data.height_map = 0;
@@ -69,7 +71,7 @@ t_file			init_struct(char *av)
 	return (data);
 }
 
-t_file			ft_do_tab(int ac, char *av)
+t_file			ft_do_tab(int ac, char *av) //no leaks
 {
 	int		fd;
 	t_file	data;
@@ -86,12 +88,12 @@ t_file			ft_do_tab(int ac, char *av)
 	}
 	data = init_struct(av);
 	data = ft_read_check_map(fd, data);
-/*	if (close(fd) == -1)
+	if (close(fd) == -1)
 	{
 		free(&data);
 		ft_putstr_fd("Close failed\n", 2);
 		exit(EXIT_FAILURE);
-		}*/
+		}
 	return (data);
 }
 
