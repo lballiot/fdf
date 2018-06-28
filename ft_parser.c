@@ -67,6 +67,7 @@ t_file			ft_check_map(char *map, t_file data)
 
 	i = -1;
 	len_line = 0;
+
 	data = ft_check_before_eol(map, data);
 	while (map[++i])
 	{
@@ -76,6 +77,7 @@ t_file			ft_check_map(char *map, t_file data)
 			if (data.len_map != len_line)
 			{
 				ft_putstr_fd("Map invalid : wrong lenght of line\n", 2);
+				free(map);
 				exit(EXIT_FAILURE);
 			}
 			len_line = 0;

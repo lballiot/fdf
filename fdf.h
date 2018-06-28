@@ -81,4 +81,10 @@ void				ft_bresen(t_file data, t_coord *coord, int i);
 
 t_file				ft_min_max(t_coord *coord, t_file *data);
 
+void				remove_lst(t_coord *coord);
+
+void				remove_tab(char **tab);
+
+void				fill_end_tab(t_file *data, int y, char **split, char **down);
+
 #endif

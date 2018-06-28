@@ -12,7 +12,7 @@
 
 NAME = fdf
 
-SRC = main.c ft_parser.c ft_coord.c ft_modif.c ft_bresen.c min_max.c
+SRC = main.c ft_parser.c ft_coord.c ft_modif.c ft_bresen.c min_max.c tools.c
 
 OBJ = $(SRC:.c=.o)
 

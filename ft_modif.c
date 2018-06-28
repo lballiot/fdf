@@ -6,24 +6,12 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/19 14:59:33 by lballiot          #+#    #+#             */
-/*   Updated: 2018/06/14 12:56:42 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 16:07:04 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void ft_remove(t_coord *lst)
-{
-	t_coord *tmp;
-	while (lst->next)
-	{
-		tmp = lst->next;
-		free(lst);
-		lst = tmp;
-	}
-	free(lst);
-	lst = NULL;
-}
 
 int			deal_key(int key, t_file *data)
 {
@@ -51,6 +39,9 @@ void		size_window(t_file *data)
 
 t_coord		*placement(t_file *data, t_coord *coord)
 {
+
+	t_coord *tmp;
+	
 	if (data->min_y < 10 && data->max_y < data->height_win - 10)
 		data->space_y += 10;
 	if (data->min_x < 0 && data->max_x < data->width_win)
@@ -62,12 +53,23 @@ t_coord		*placement(t_file *data, t_coord *coord)
 		else if (data->max_x + 10 < data->width_win)
 			data->space_x += 10;
 	}
-	ft_remove(coord);
+	tmp = coord;
+	while (tmp->next)
+	{
+		coord = tmp->next;
+		free(tmp);
+		tmp = coord;
+	}
+	free(tmp);
+	tmp = NULL;
+	coord = NULL;
 	return (ft_modification(data, ft_coord(data, coord)));
 }
 
 t_coord		*param(t_file *data, t_coord *coord)
 {
+	t_coord *tmp;
+	
 	if ((data->max_x > data->width_win || data->max_y > data->height_win)
 		&& data->zoom > 5)
 	{
@@ -75,15 +77,43 @@ t_coord		*param(t_file *data, t_coord *coord)
 			data->zoom--;
 		if (data->zoom > 10)
 			data->zoom -= 10;
-		ft_remove(coord);
+		tmp = coord;
+		while (tmp->next)
+		{
+			coord = tmp->next;
+			free(tmp);
+			tmp = coord;
+		}
+		free(tmp);
+		tmp = NULL;
+		coord = NULL;
 		return (ft_modification(data, ft_coord(data, coord)));
 	}
 	else if (data->min_y < 0 && data->evelation >= 20)
 	{
 		data->evelation -= 10;
-		ft_remove(coord);
+		tmp = coord;
+		while (tmp->next)
+		{
+			coord = tmp->next;
+			free(tmp);
+			tmp = coord;
+		}
+		free(tmp);
+		tmp = NULL;
+		coord = NULL;
 		return (ft_modification(data, ft_coord(data, coord)));
 	}
+	tmp = coord;
+	while (tmp->next)
+	{
+		coord = tmp->next;
+		free(tmp);
+		tmp = coord;
+	}
+	free(tmp);
+	tmp = NULL;
+	coord = NULL;
 	return (coord);
 }
 
@@ -95,11 +125,11 @@ t_coord		*ft_modification(t_file *data, t_coord *coord)
 		coord = placement(data, coord);
 	if ((data->min_x < 0 || data->min_y < 0) ||
 		((data->max_x > data->width_win || data->max_y > data->height_win) &&
-		data->zoom > 20))
+			data->zoom > 20))
 		coord = param(data, coord);
 	data->window = mlx_new_window(data->mlx_ptr, data->width_win,
-								data->height_win, data->av);
+		data->height_win, data->av);
 	mlx_key_hook(data->window, deal_key, data);
+//	ft_strdel(&data->av);//
 	return (coord);
 }
-
