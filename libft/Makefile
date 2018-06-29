@@ -82,7 +82,8 @@ SRC = ft_memset.c \
 	  ft_strrev.c \
 	  ft_r_index.c \
 	  ft_index.c \
-	  ft_is_spaces.c
+	  ft_is_spaces.c \
+	  gnl_2.c
 
 OBJ = $(SRC:.c=.o)
 

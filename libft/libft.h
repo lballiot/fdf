@@ -177,4 +177,10 @@ int				ft_index(char *str, char c);
 
 int				get_next_line(const int fd, char **line);
 
+void			read2(char *buf, char *cpy, char **tmp);
+
+void			return2(char **line, t_struct **l, char **cpy, t_struct *tmp_l);
+
+void			gnl2(char **cpy, t_struct *l);
+
 #endif

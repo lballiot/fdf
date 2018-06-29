@@ -12,7 +12,6 @@
 
 #include "fdf.h"
 
-
 int			deal_key(int key, t_file *data)
 {
 	if (key == 53)
@@ -39,9 +38,6 @@ void		size_window(t_file *data)
 
 t_coord		*placement(t_file *data, t_coord *coord)
 {
-
-	t_coord *tmp;
-	
 	if (data->min_y < 10 && data->max_y < data->height_win - 10)
 		data->space_y += 10;
 	if (data->min_x < 0 && data->max_x < data->width_win)
@@ -53,23 +49,13 @@ t_coord		*placement(t_file *data, t_coord *coord)
 		else if (data->max_x + 10 < data->width_win)
 			data->space_x += 10;
 	}
-	tmp = coord;
-	while (tmp->next)
-	{
-		coord = tmp->next;
-		free(tmp);
-		tmp = coord;
-	}
-	free(tmp);
-	tmp = NULL;
+	remove_lst(coord);
 	coord = NULL;
 	return (ft_modification(data, ft_coord(data, coord)));
 }
 
 t_coord		*param(t_file *data, t_coord *coord)
 {
-	t_coord *tmp;
-	
 	if ((data->max_x > data->width_win || data->max_y > data->height_win)
 		&& data->zoom > 5)
 	{
@@ -77,42 +63,18 @@ t_coord		*param(t_file *data, t_coord *coord)
 			data->zoom--;
 		if (data->zoom > 10)
 			data->zoom -= 10;
-		tmp = coord;
-		while (tmp->next)
-		{
-			coord = tmp->next;
-			free(tmp);
-			tmp = coord;
-		}
-		free(tmp);
-		tmp = NULL;
+		remove_lst(coord);
 		coord = NULL;
 		return (ft_modification(data, ft_coord(data, coord)));
 	}
 	else if (data->min_y < 0 && data->evelation >= 20)
 	{
 		data->evelation -= 10;
-		tmp = coord;
-		while (tmp->next)
-		{
-			coord = tmp->next;
-			free(tmp);
-			tmp = coord;
-		}
-		free(tmp);
-		tmp = NULL;
+		remove_lst(coord);
 		coord = NULL;
 		return (ft_modification(data, ft_coord(data, coord)));
 	}
-	tmp = coord;
-	while (tmp->next)
-	{
-		coord = tmp->next;
-		free(tmp);
-		tmp = coord;
-	}
-	free(tmp);
-	tmp = NULL;
+	remove_lst(coord);
 	coord = NULL;
 	return (coord);
 }
@@ -130,6 +92,5 @@ t_coord		*ft_modification(t_file *data, t_coord *coord)
 	data->window = mlx_new_window(data->mlx_ptr, data->width_win,
 		data->height_win, data->av);
 	mlx_key_hook(data->window, deal_key, data);
-//	ft_strdel(&data->av);//
 	return (coord);
 }

@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:37:41 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 14:47:47 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/06/29 10:29:54 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,37 +34,40 @@ typedef struct		s_coord
 
 typedef struct		s_file
 {
-	void		*mlx_ptr;
-	void		*window;
-	char		**tab;
-	int			len_map;
-	int			height_map;
-	int			zoom;
-	char		*av;
-	t_coord		*tmp;
-	int			t[9];
-	int			min_x;
-	int			min_y;
-	int			max_x;
-	int			max_y;
-	int			width_win;
-	int			height_win;
-	int			space_x;
-	int			space_y;
-	int			i;
-	int			evelation;
+	void			*mlx_ptr;
+	void			*window;
+	char			**tab;
+	int				len_map;
+	int				height_map;
+	int				zoom;
+	char			*av;
+	t_coord			*tmp;
+	int				t[9];
+	int				min_x;
+	int				min_y;
+	int				max_x;
+	int				max_y;
+	int				width_win;
+	int				height_win;
+	int				space_x;
+	int				space_y;
+	int				i;
+	int				evelation;
+	char			**split;
+	char			**down;
+	int				y;
 }					t_file;
 
 typedef	struct		s_bresen
 {
-	int dx;
-	int dy;
-	int i;
-	int xinc;
-	int yinc;
-	int cumul;
-	int x;
-	int y;
+	int				dx;
+	int				dy;
+	int				i;
+	int				xinc;
+	int				yinc;
+	int				cumul;
+	int				x;
+	int				y;
 }					t_bresen;
 
 void				ft_check_char(char *map);
@@ -85,6 +88,8 @@ void				remove_lst(t_coord *coord);
 
 void				remove_tab(char **tab);
 
-void				fill_end_tab(t_file *data, int y, char **split, char **down);
+void				fill_end_tab(t_file *data);
+
+void				isometrie(t_coord **e);
 
 #endif

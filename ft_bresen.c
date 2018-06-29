@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/30 13:55:42 by lballiot          #+#    #+#             */
-/*   Updated: 2018/05/17 15:06:28 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/06/29 10:24:58 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void		init_bresen(t_bresen *s, t_coord *coord)
 
 void			draw_line(t_file data, t_bresen s)
 {
-	int color;
+	int		color;
 
 	color = 0xffffcc;
 	s.cumul = s.dx / 2;

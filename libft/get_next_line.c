@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/07 11:11:45 by lballiot          #+#    #+#             */
-/*   Updated: 2018/06/28 16:14:27 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/06/29 11:20:37 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,13 @@ int				ft_read(t_struct **l, char **tmp, char **line, t_struct *tmp_l)
 	char *buf;
 	char *cpy;
 
+	cpy = NULL;
 	buf = ft_strnew(BUFF_SIZE);
 	while (((*l)->i = read((*l)->fd, buf, BUFF_SIZE)) != EOF && (*l)->i > 0)
 	{
 		if (ft_strchr(buf, C))
 		{
-			if (ft_index(buf, C) > 0)
-			{
-				cpy = ft_strsub(buf, 0, ft_index(buf, C));
-				*tmp = ft_strjoin_and_free(*tmp, cpy);
-				ft_strdel(&cpy);
-			}
+			read2(buf, cpy, tmp);
 			if (ft_strstr(buf, CH) && (*line = ft_strdup(*tmp)))
 			{
 				free((*l)->str);
@@ -72,14 +68,7 @@ int				ft_return(char **line, t_struct **l, t_struct *tmp_l, int flag)
 
 	tmp = ft_strnew(1);
 	if (flag == 1)
-	{
-		*line = ft_strsub((*l)->str, 1, (ft_strlen((*l)->str) - 2));
-		cpy = ft_strsub((*l)->str, 1, (ft_strlen((*l)->str) - 2));
-		free((*l)->str);
-		(*l)->str = ft_strdup(cpy);
-		free(cpy);
-		(*l) = tmp_l;
-	}
+		return2(line, l, &cpy, tmp_l);
 	else
 	{
 		if (ft_index((*l)->str, C) > 0)
@@ -135,7 +124,7 @@ int				get_next_line(const int fd, char **line)
 	char			*tmp;
 	static t_struct	*l;
 	t_struct		*tmp_link;
-	char 			*cpy;
+	char			*cpy;
 
 	tmp = ft_strnew(1);
 	if (fd < 0 || line == NULL || BUFF_SIZE < 1)
@@ -148,11 +137,7 @@ int				get_next_line(const int fd, char **line)
 			return (ft_return(line, &l, tmp_link, 1));
 		if (ft_r_index(l->str, C) > 0)
 		{
-			cpy = ft_strsub(l->str, ft_r_index(l->str, C),
-					(ft_strlen(l->str) - ft_r_index(l->str, C)));
-			free(l->str);
-			l->str = ft_strdup(cpy);
-			free(cpy);
+			gnl2(&cpy, l);
 		}
 		if (ft_strchr(l->str, C))
 			return (ft_return(line, &l, tmp_link, 0));

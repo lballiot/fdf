@@ -41,15 +41,15 @@ t_file			ft_read_check_map(int fd, t_file data)
 	return (data);
 }
 
-t_file			init_struct(char *av)
+t_file			init_struct(void)
 {
 	t_file	data;
-	int		i;
 
-	i = -1;
-	(void)av;
 	if (!(data.mlx_ptr = mlx_init()))
 		exit(EXIT_FAILURE);
+	data.split = NULL;
+	data.down = NULL;
+	data.y = -1;
 	data.window = NULL;
 	data.tab = NULL;
 	data.len_map = 0;
@@ -59,13 +59,14 @@ t_file			init_struct(char *av)
 	data.min_y = 0;
 	data.max_x = 0;
 	data.max_y = 0;
-	data.i = 0;
+	data.i = -1;
 	data.space_x = 5;
 	data.space_y = 5;
 	data.tmp = NULL;
 	data.evelation = 20;
-	while (i < 9)
-		data.t[++i] = 0;
+	while (data.i < 9)
+		data.t[++data.i] = 0;
+	data.i = 0;
 	return (data);
 }
 
@@ -84,7 +85,7 @@ t_file			ft_do_tab(int ac, char *av)
 		ft_putstr_fd("Open failed : please use an existing file\n", 2);
 		exit(EXIT_FAILURE);
 	}
-	data = init_struct(av);
+	data = init_struct();
 	data = ft_read_check_map(fd, data);
 	if (close(fd) == -1)
 	{

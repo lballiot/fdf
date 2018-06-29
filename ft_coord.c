@@ -6,30 +6,11 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/18 14:50:48 by lballiot          #+#    #+#             */
-/*   Updated: 2018/06/28 13:30:36 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/06/29 10:27:10 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void			isometrie(t_coord **e)
-{
-	(*e)->point[0] = (float)(((0.07 * (float)(*e)->point[0] - 0.07 *
-		(float)(*e)->point[1])) * 3 + 200);
-	(*e)->point[1] = (float)(((0.04 * (float)(*e)->point[0] + 0.04 *
-		(float)(*e)->point[1]) - 0.2 *
-	(float)(*e)->point[2]) * 3 + 200);
-	(*e)->right[0] = (float)(((0.07 * (float)(*e)->right[0] - 0.07 *
-		(float)(*e)->right[1])) * 3 + 200);
-	(*e)->right[1] = (float)(((0.04 * (float)(*e)->right[0] + 0.04 *
-		(float)(*e)->right[1]) - 0.2 *
-	(float)(*e)->right[2]) * 3 + 200);
-	(*e)->down[0] = (float)(((0.07 * (float)(*e)->down[0] - 0.07 *
-		(float)(*e)->down[1])) * 3 + 200);
-	(*e)->down[1] = (float)(((0.04 * (float)(*e)->down[0] + 0.04 *
-		(float)(*e)->down[1]) - 0.2 *
-	(float)(*e)->down[2]) * 3 + 200);
-}
 
 void			fill_elem(t_coord **e, t_file data)
 {
@@ -70,70 +51,71 @@ t_coord			*ft_add_coord(t_coord *coord, t_file data)
 	return (coord);
 }
 
-void			fill_tab_int(t_file *data, int y, char **split, char **down)
+void			fill_tab_int(t_file *data)
 {
 	int x;
 
 	x = data->i;
 	data->t[0] = x + data->space_x;
-	data->t[1] = y;
-	data->t[2] = ft_atoi(split[x]);
-	if (split[x + 1] != NULL)
+	data->t[1] = data->y;
+	data->t[2] = ft_atoi(data->split[x]);
+	if (data->split[x + 1] != NULL)
 	{
 		data->t[3] = x + 1 + data->space_x;
-		data->t[4] = y;
-		data->t[5] = ft_atoi(split[x + 1]);
+		data->t[4] = data->y;
+		data->t[5] = ft_atoi(data->split[x + 1]);
 	}
-	if (down && down[x] != NULL)
+	if (data->down && data->down[x] != NULL)
 	{
 		data->t[6] = x + data->space_x;
-		data->t[7] = y + 1;
-		data->t[8] = ft_atoi(down[x]);
+		data->t[7] = data->y + 1;
+		data->t[8] = ft_atoi(data->down[x]);
 	}
 	else
 	{
 		data->i = x;
-		fill_end_tab(data, y, split, down);
+		fill_end_tab(data);
+	}
+}
+
+void			ft_coord2(t_file *sct)
+{
+	if (sct->tab[sct->y][ft_strlen(sct->tab[sct->y]) - 1] == ' ')
+		sct->tab[sct->y][ft_strlen(sct->tab[sct->y]) - 1] = '\0';
+	sct->split = ft_strsplit(sct->tab[sct->y], ' ');
+	if (sct->tab[sct->y + 1] != NULL)
+	{
+		if (sct->down != NULL)
+			free(sct->down);
+		if (sct->tab[sct->y + 1][ft_strlen(sct->tab[sct->y + 1]) - 1] == ' ')
+			sct->tab[sct->y + 1][ft_strlen(sct->tab[sct->y + 1]) - 1] = '\0';
+		sct->down = ft_strsplit(sct->tab[sct->y + 1], ' ');
 	}
 }
 
 t_coord			*ft_coord(t_file *data, t_coord *coord)
 {
-	int		y;
-	char	**tab_split;
-	char	**tab_down;
-
-	y = -1;
 	data->i = -1;
-	tab_split = NULL;
-	tab_down = NULL;
-	while (data->tab[++y] != NULL)
+	data->y = -1;
+	data->split = NULL;
+	data->down = NULL;
+	while (data->tab[++data->y] != NULL)
 	{
-		if (data->tab[y][ft_strlen(data->tab[y]) - 1] == ' ')
-			data->tab[y][ft_strlen(data->tab[y]) - 1] = '\0';
-		tab_split = ft_strsplit(data->tab[y], ' ');
-		if (data->tab[y + 1] != NULL)
+		ft_coord2(data);
+		while (data->split[++data->i] != NULL)
 		{
-			if (tab_down != NULL)
-				free(tab_down);
-			if (data->tab[y + 1][ft_strlen(data->tab[y + 1]) - 1] == ' ')
-				data->tab[y + 1][ft_strlen(data->tab[y + 1]) - 1] = '\0';
-			tab_down = ft_strsplit(data->tab[y + 1], ' ');
-		}
-		while (tab_split[++data->i] != NULL)
-		{
-			fill_tab_int(data, y, tab_split, tab_down);
+			fill_tab_int(data);
 			coord = ft_add_coord(coord, *data);
 		}
-		remove_tab(tab_split);
+		remove_tab(data->split);
 		data->i = 0;
-		if (tab_down && tab_down[0])
-			while (tab_down[data->i])
-				ft_strdel(&tab_down[data->i++]);
+		if (data->down && data->down[0])
+			while (data->down[data->i])
+				ft_strdel(&data->down[data->i++]);
 		data->i = -1;
 	}
-	if (tab_down != NULL)
-		free(tab_down);
+	if (data->down != NULL)
+		free(data->down);
 	*data = ft_min_max(coord, data);
 	return (coord);
 }
