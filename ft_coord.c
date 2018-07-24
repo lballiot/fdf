@@ -51,6 +51,21 @@ t_coord			*ft_add_coord(t_coord *coord, t_file data)
 	return (coord);
 }
 
+void			change_neg(t_file *data)
+{
+	// if altitude (= z) modifier  
+//	if (t[2] < 100000)
+	printf("YOYOYOYOYOY\n%d\n", data->t[0]);
+	printf("%d\n", data->t[1]);
+	printf("%d\n", data->t[2]);
+	printf("%d\n", data->t[3]);
+	printf("%d\n", data->t[4]);
+	printf("%d\n", data->t[5]);
+	printf("%d\n", data->t[6]);
+	printf("%d\n", data->t[7]);
+	printf("%d\nYOYOYOYOYO\n", data->t[8]);
+}
+
 void			fill_tab_int(t_file *data)
 {
 	int x;
@@ -76,13 +91,20 @@ void			fill_tab_int(t_file *data)
 		data->i = x;
 		fill_end_tab(data);
 	}
+//	change_neg(data);
 }
 
 void			ft_coord2(t_file *sct)
 {
 	if (sct->tab[sct->y][ft_strlen(sct->tab[sct->y]) - 1] == ' ')
 		sct->tab[sct->y][ft_strlen(sct->tab[sct->y]) - 1] = '\0';
-	sct->split = ft_strsplit(sct->tab[sct->y], ' ');
+	if (sct->tab[sct->y])
+	{
+		ft_putstr("E");
+		sct->split = ft_strsplit(sct->tab[sct->y], ' '); //crash ici /!\/
+		ft_putstr("Q");
+	}
+	ft_putstr("P");
 	if (sct->tab[sct->y + 1] != NULL)
 	{
 		if (sct->down != NULL)
@@ -91,6 +113,7 @@ void			ft_coord2(t_file *sct)
 			sct->tab[sct->y + 1][ft_strlen(sct->tab[sct->y + 1]) - 1] = '\0';
 		sct->down = ft_strsplit(sct->tab[sct->y + 1], ' ');
 	}
+//		ft_putstr("lalal\n");
 }
 
 t_coord			*ft_coord(t_file *data, t_coord *coord)
@@ -99,9 +122,12 @@ t_coord			*ft_coord(t_file *data, t_coord *coord)
 	data->y = -1;
 	data->split = NULL;
 	data->down = NULL;
+	ft_putstr("#");
 	while (data->tab[++data->y] != NULL)
 	{
+		ft_putstr("B");
 		ft_coord2(data);
+		ft_putstr("R");
 		while (data->split[++data->i] != NULL)
 		{
 			fill_tab_int(data);
@@ -112,10 +138,10 @@ t_coord			*ft_coord(t_file *data, t_coord *coord)
 		if (data->down && data->down[0])
 			while (data->down[data->i])
 				ft_strdel(&data->down[data->i++]);
-		data->i = -1;
+			data->i = -1;
+		}
+		if (data->down != NULL)
+			free(data->down);
+		*data = ft_min_max(coord, data);
+		return (coord);
 	}
-	if (data->down != NULL)
-		free(data->down);
-	*data = ft_min_max(coord, data);
-	return (coord);
-}

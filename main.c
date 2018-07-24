@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/30 12:36:27 by lballiot          #+#    #+#             */
-/*   Updated: 2018/06/21 12:05:26 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/07/24 14:56:47 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,15 +116,21 @@ int				main(int ac, char **av)
 
 	coord = NULL;
 	data = ft_do_tab(ac, av[1]);
+	ft_putstr("TOTO\n");
 	data.av = ft_strdup(av[1]);
+	ft_putstr("TITI\n");
 	if (data.tab[0] == NULL)
 		exit(EXIT_FAILURE);
 	coord = ft_coord(&data, coord);
+	ft_putstr("TATA\n");
 	if (coord == NULL)
 		exit(EXIT_FAILURE);
 	coord = ft_modification(&data, coord);
+	printf("coord x = %d\ncoord y = %d\n", coord->point[0], coord->point[1]);
+	ft_putstr("TUTU\n");
 	if (coord)
 		begin_bressen(coord, data);
+	ft_putstr("TYTY\n");
 	remove_tab(data.tab);
 	remove_lst(coord);
 	mlx_loop(data.mlx_ptr);

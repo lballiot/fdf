@@ -6,7 +6,7 @@
 /*   By: lballiot <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/13 10:55:33 by lballiot          #+#    #+#             */
-/*   Updated: 2018/07/24 13:40:08 by lballiot         ###   ########.fr       */
+/*   Updated: 2018/05/17 14:36:50 by lballiot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
-# define BUFF_SIZE 1000
+# define BUFF_SIZE 4
 # define C '\n'
 # define CH "\n"
 

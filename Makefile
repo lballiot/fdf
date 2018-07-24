@@ -18,7 +18,7 @@ OBJ = $(SRC:.c=.o)
 
 CC = clang
 
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror
 
 FLAGS = -lmlx -framework OpenGL -framework AppKit -L/usr/local/lib/ \
 		-I/usr/local/include libft/libft.a
