@@ -68,3 +68,13 @@ void			fill_end_tab(t_file *data)
 	if (data->down && data->down[data->i])
 		data->down[data->i + 1] = NULL;
 }
+
+int				deal_key(int key, t_file *data)
+{
+	if (key == 53)
+	{
+		mlx_destroy_window(data->mlx_ptr, data->window);
+		exit(EXIT_FAILURE);
+	}
+	return (0);
+}

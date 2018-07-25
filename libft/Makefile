@@ -6,7 +6,7 @@
 #    By: lballiot <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/09 18:13:52 by lballiot          #+#    #+#              #
-#    Updated: 2018/07/24 14:51:44 by lballiot         ###   ########.fr        #
+#    Updated: 2018/04/26 17:11:54 by lballiot         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ SRC = ft_memset.c \
 	  ft_strrchr.c \
 	  ft_strcmp.c \
 	  get_next_line.c \
-	  gnl_2.c \
 	  ft_strncmp.c \
 	  ft_atoi.c \
 	  ft_isalpha.c \
@@ -83,7 +82,8 @@ SRC = ft_memset.c \
 	  ft_strrev.c \
 	  ft_r_index.c \
 	  ft_index.c \
-	  ft_is_spaces.c 
+	  ft_is_spaces.c \
+	  gnl_2.c
 
 OBJ = $(SRC:.c=.o)
 

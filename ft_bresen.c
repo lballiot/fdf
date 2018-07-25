@@ -76,7 +76,7 @@ void			draw_column(t_file data, t_bresen s)
 			s.cumul -= s.dy;
 			s.x += s.xinc;
 		}
-		mlx_pixel_put(data.mlx_ptr, data.window, s.x, s.y, (color += 50));
+		mlx_pixel_put(data.mlx_ptr, data.window, s.x, s.y, color);
 	}
 }
 

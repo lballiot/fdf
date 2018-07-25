@@ -54,10 +54,20 @@ static t_file	ft_check_before_eol(char *map, t_file data)
 	i = -1;
 	while (map[++i] != '\n' && map[i] != '\0')
 		if (((map[i] >= '0' && map[i] <= '9') && (!(map[i - 1] >= '0' &&
-													map[i - 1] <= '9')))
+			map[i - 1] <= '9')))
 			|| ((map[i] >= '0' && map[i] <= '9') && i == 0))
 			data.len_map++;
 	return (data);
+}
+
+void			invalid(t_file data, int len_line, char *map)
+{
+	if (data.len_map != len_line)
+	{
+		ft_putstr_fd("Map invalid : wrong lenght of line\n", 2);
+		free(map);
+		exit(EXIT_FAILURE);
+	}
 }
 
 t_file			ft_check_map(char *map, t_file data)
@@ -73,18 +83,14 @@ t_file			ft_check_map(char *map, t_file data)
 		if (map[i] == '\n')
 		{
 			data.height_map++;
-			if (data.len_map != len_line)
-			{
-				ft_putstr_fd("Map invalid : wrong lenght of line\n", 2);
-				free(map);
-				exit(EXIT_FAILURE);
-			}
+			invalid(data, len_line, map);
 			len_line = 0;
 		}
 		if (((map[i] >= '0' && map[i] <= '9') && (!(map[i - 1] >= '0' &&
-													map[i - 1] <= '9')))
+			map[i - 1] <= '9')))
 			|| ((map[i] >= '0' && map[i] <= '9') && i == 0))
 			len_line++;
 	}
+	invalid(data, len_line, map);
 	return (data);
 }

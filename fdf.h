@@ -92,4 +92,6 @@ void				fill_end_tab(t_file *data);
 
 void				isometrie(t_coord **e);
 
+int					deal_key(int key, t_file *data);
+
 #endif
